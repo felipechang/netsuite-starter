@@ -1,0 +1,86 @@
+{
+  "rules": {
+    "align": true,
+    "arrow-parens": true,
+    "arrow-return-shorthand": true,
+    "ban-comma-operator": true,
+    "curly": true,
+    "import-spacing": true,
+    "jsdoc-format": true,
+    "newline-before-return": true,
+    "new-parens": true,
+    "no-consecutive-blank-lines": true,
+    "no-construct": true,
+    "no-duplicate-super": true,
+    "no-duplicate-switch-case": true,
+    "no-duplicate-variable": true,
+    "no-empty": true,
+    "no-empty-interface": true,
+    "no-eval": true,
+    "no-irregular-whitespace": true,
+    "no-non-null-assertion": true,
+    "no-require-imports": true,
+    "no-shadowed-variable": true,
+    "no-string-throw": true,
+    "no-trailing-whitespace": true,
+    "no-unnecessary-callback-wrapper": true,
+    "number-literal-format": true,
+    "object-literal-shorthand": true,
+    "only-arrow-functions": true,
+    "ordered-imports": true,
+    "prefer-conditional-expression": true,
+    "prefer-const": true,
+    "prefer-template": true,
+    "space-within-parens": true,
+    "switch-default": true,
+    "switch-final-break": true,
+    "triple-equals": true,
+    "array-type": [
+      true,
+      "array"
+    ],
+    "comment-format": [
+      true,
+      "check-space",
+      "check-uppercase"
+    ],
+    "interface-name": [
+      true,
+      "always-prefix"
+    ],
+    "member-ordering": [
+      true,
+      {
+        "order": "fields-first"
+      }
+    ],
+    "object-literal-key-quotes": [
+      false
+    ],
+    "one-line": [
+      true,
+      "check-catch",
+      "check-finally",
+      "check-else"
+    ],
+    "quotemark": [
+      true,
+      "double"
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ]
+  }
+}

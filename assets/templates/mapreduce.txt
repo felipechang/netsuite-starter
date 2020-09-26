@@ -1,0 +1,39 @@
+import {EntryPoints} from "N/types";
+
+/**
+ * Map/Reduce script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date} <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType MapReduceScript
+ */
+
+/** getInputData event handler */
+export let getInputData: EntryPoints.MapReduce.getInputData = (context: EntryPoints.MapReduce.getInputDataContext) => {
+    // Enter code here
+};
+
+/** map event handler */
+export let map: EntryPoints.MapReduce.map = (context: EntryPoints.MapReduce.mapContext) => {
+    // Enter code here
+};
+
+/** reduce event handler */
+export let reduce: EntryPoints.MapReduce.reduce = (context: EntryPoints.MapReduce.reduceContext) => {
+    // Enter code here
+};
+
+/** summarize event handler */
+export let summarize: EntryPoints.MapReduce.summarize = (summary: EntryPoints.MapReduce.summarizeContext) => {
+    // Enter code here
+};

@@ -1,0 +1,49 @@
+import {EntryPoints} from "N/types";
+import onAfterInstallContext = EntryPoints.BundleInstallation.onAfterInstallContext;
+import onAfterUpdateContext = EntryPoints.BundleInstallation.onAfterUpdateContext;
+import onBeforeInstallContext = EntryPoints.BundleInstallation.onBeforeInstallContext;
+import onBeforeUpdateContext = EntryPoints.BundleInstallation.onBeforeUpdateContext;
+import onBeforeUninstallContext = EntryPoints.BundleInstallation.onBeforeUninstallContext;
+
+/**
+ * Bundle Installation script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date} <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType BundleInstallationScript
+ */
+
+/** afterInstall event handler */
+export let afterInstall: EntryPoints.BundleInstallation.afterInstall = (context: onAfterInstallContext) => {
+    // Enter code here
+};
+
+/** afterUpdate event handler */
+export let afterUpdate: EntryPoints.BundleInstallation.afterUpdate = (context: onAfterUpdateContext) => {
+    // Enter code here
+};
+
+/** beforeInstall event handler */
+export let beforeInstall: EntryPoints.BundleInstallation.beforeInstall = (context: onBeforeInstallContext) => {
+    // Enter code here
+};
+
+/** beforeUninstall event handler */
+export let beforeUninstall: EntryPoints.BundleInstallation.beforeUninstall = (context: onBeforeUninstallContext) => {
+    // Enter code here
+};
+
+/** beforeUpdate event handler */
+export let beforeUpdate: EntryPoints.BundleInstallation.beforeUpdate = (context: onBeforeUpdateContext) => {
+    // Enter code here
+};

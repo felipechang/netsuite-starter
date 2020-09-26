@@ -1,0 +1,24 @@
+import {EntryPoints} from "N/types";
+
+/**
+ * Workflow script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date} <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType WorkflowActionScript
+ */
+
+/** onAction event handler */
+export let onAction: EntryPoints.WorkflowAction.onAction = (context: EntryPoints.WorkflowAction.onActionContext) => {
+    // Enter code here
+};

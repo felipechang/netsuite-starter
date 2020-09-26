@@ -1,0 +1,24 @@
+import {EntryPoints} from "N/types";
+
+/**
+ * Scheduled script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date} <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType ScheduledScript
+ */
+
+/** execute event handler */
+export let execute: EntryPoints.Scheduled.execute = (context: EntryPoints.Scheduled.executeContext) => {
+    // Enter code here
+};

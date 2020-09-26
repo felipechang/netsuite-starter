@@ -1,0 +1,13 @@
+{
+  "project": "enter project name",
+  "name": "enter full name",
+  "email": "enter email",
+  "company": "company name",
+  "account": "enter account number",
+  "password": "enter password",
+  "role": "role id",
+  "applicationId": "application id",
+  "url": "system.netsuite.com",
+  "tokenId": "token Id for current user",
+  "tokenSecret": "token secret for current user"
+}

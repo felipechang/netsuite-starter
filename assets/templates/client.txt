@@ -1,0 +1,83 @@
+import {EntryPoints} from "N/types";
+
+/**
+ * Client script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date} <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType ClientScript
+ */
+
+/** Performs a sequential evaluation */
+const chain = (fArr: { (): boolean; } []): boolean => {
+    if (!fArr) {
+        return true;
+    }
+    for (let i: number = 0; i < fArr.length; i++) {
+        if (!fArr[i]()) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+/** pageInit event handler */
+export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
+    // Enter code here
+};
+
+/** validateField event handler */
+export let validateField: EntryPoints.Client.validateField = (context: EntryPoints.Client.validateFieldContext) => {
+    // Enter code here
+};
+
+/** fieldChanged event handler */
+export let fieldChanged: EntryPoints.Client.fieldChanged = (context: EntryPoints.Client.fieldChangedContext) => {
+    // Enter code here
+};
+
+/** postSourcing event handler */
+export let postSourcing: EntryPoints.Client.postSourcing = (context: EntryPoints.Client.postSourcingContext) => {
+    // Enter code here
+};
+
+/** lineInit event handler */
+export let lineInit: EntryPoints.Client.lineInit = (context: EntryPoints.Client.lineInitContext) => {
+    // Enter code here
+};
+
+/** validateLine event handler */
+export let validateLine: EntryPoints.Client.validateLine = (context: EntryPoints.Client.validateLineContext) => {
+    // Enter code here
+};
+
+/** validateInsert event handler */
+export let validateInsert: EntryPoints.Client.validateInsert = (context: EntryPoints.Client.validateInsertContext) => {
+    // Enter code here
+};
+
+/** validateDelete event handler */
+export let validateDelete: EntryPoints.Client.validateDelete = (context: EntryPoints.Client.validateDeleteContext) => {
+    // Enter code here
+};
+
+/** sublistChanged event handler */
+export let sublistChanged: EntryPoints.Client.sublistChanged = (context: EntryPoints.Client.sublistChangedContext) => {
+    // Enter code here
+};
+
+/** saveRecord event handler */
+export let saveRecord: EntryPoints.Client.saveRecord = (context: EntryPoints.Client.saveRecordContext) => {
+    // Enter code here
+};

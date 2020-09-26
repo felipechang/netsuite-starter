@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
+    "target": "es5",
+    /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "module": "umd",
+    /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "moduleResolution": "node",
+    /* Generates corresponding '.map' file. */
+    "sourceMap": false,
+    /* Use the specified end of line sequence to be used when emitting files: "crlf" (windows) or "lf" (unix) */
+    "newLine": "LF",
+    /* Enables experimental support for ES7 decorators. */
+    "experimentalDecorators": true,
+    /* Do not emit "use strict" directives in module output. */
+    "noImplicitUseStrict": true,
+    /* Raise error on expressions and declarations with an implied any type */
+    "noImplicitAny": true,
+    /* Raise error on this expressions with an implied any type */
+    "noImplicitThis": true,
+    /* In strict null checking mode, the null and undefined values are not in the domain of every type and are only assignable to themselves and any (the one exception being that undefined is also assignable to void) */
+    "strictNullChecks": true,
+    /* Disable bivariant parameter checking for function types */
+    "strictFunctionTypes": true,
+    /* Ensure non-undefined class properties are initialized in the constructor. This option requires --strictNullChecks be enabled in order to take effect */
+    "strictPropertyInitialization": true,
+    /* Base directory to resolve non-absolute module names. */
+    "baseUrl": "./source",
+    /* Report errors on unused locals */
+    "noUnusedLocals": true,
+    /* Report errors on unused parameters. */
+    "noUnusedParameters": true,
+    /* Report error when not all code paths in function return a value */
+    "noImplicitReturns": true,
+    /* Report errors for fallthrough cases in switch statement */
+    "noFallthroughCasesInSwitch": true,
+    /* Specify library files to be included in the compilation. */
+    "lib": [
+      "es5",
+      "es2015.promise",
+      "dom"
+    ],
+    /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+    "paths": {
+      "N": [
+        "../node_modules/@hitc/netsuite-types/N"
+      ],
+      "N/*": [
+        "../node_modules/@hitc/netsuite-types/N/*"
+      ]
+    }
+  },
+  "include": [
+    "source",
+    "assets",
+    "tests"
+  ]
+}

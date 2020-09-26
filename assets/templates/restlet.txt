@@ -1,0 +1,49 @@
+import {EntryPoints} from "N/types";
+
+/** RESTlet standard return */
+type RestReturn = string | object;
+
+/**
+ * RESTlet script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date} <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType Restlet
+ */
+
+/** GET event handler */
+const get: EntryPoints.RESTlet.get = (requestParams: object): RestReturn => {
+    // Enter code here
+};
+
+/** POST event handler */
+const post: EntryPoints.RESTlet.post = (requestBody: object): RestReturn => {
+    // Enter code here
+};
+
+/** PUT event handler */
+const put: EntryPoints.RESTlet.put = (requestBody: object): RestReturn => {
+    // Enter code here
+};
+
+/** DELETE event handler */
+const remove: EntryPoints.RESTlet.delete_ = (requestParams: object): RestReturn => {
+    // Enter code here
+};
+
+export = {
+    ["get"]: get,
+    ["post"]: post,
+    ["put"]: put,
+    ["delete"]: remove,
+};
