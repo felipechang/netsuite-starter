@@ -67,6 +67,7 @@ const inquirerMenu: QuestionCollection = [{
             "repository",
             "scheduled",
             "static",
+            "util",
         ].indexOf(answers.type) === -1;
     }
 }, {

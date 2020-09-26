@@ -4,7 +4,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "change-case", "dotenv", "ejs", "fs", "inquirer", "moment"], factory);
+        define(["require", "exports", "change-case", "dotenv", "ejs", "fs", "inquirer", "moment", "./types.json"], factory);
     }
 })(function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -14,6 +14,8 @@
     var fs_1 = require("fs");
     var inquirer_1 = require("inquirer");
     var moment = require("moment");
+    // @ts-ignore
+    var recordTypes = require("./types.json");
     dotenv.config();
     // Inquirer menu options
     var inquirerMenu = [{
@@ -34,28 +36,12 @@
                 { name: "User Event", value: "userevent" },
                 { name: "Workflow Action", value: "workflow" },
                 new inquirer_1.Separator("-- Auxiliary --"),
+                { name: "Bloc", value: "bloc" },
                 { name: "Configuration", value: "config" },
                 { name: "Repository", value: "repository" },
                 { name: "Static", value: "static" },
+                { name: "Utility", value: "util" },
             ]
-        }, {
-            type: "input",
-            name: "record",
-            message: "Enter record type",
-            when: function (answers) {
-                return answers.type === "static";
-            }
-        }, {
-            type: "list",
-            name: "custom",
-            message: "Is this a custom record",
-            choices: [
-                { name: "Yes", value: true },
-                { name: "No", value: false },
-            ],
-            when: function (answers) {
-                return answers.type === "interface";
-            }
         }, {
             type: "input",
             name: "name",
@@ -74,12 +60,21 @@
         }, {
             type: "checkbox",
             name: "types",
-            choices: [
-                "customer",
-                "lead",
-                "prospect"
-            ],
+            choices: recordTypes,
             message: "Enter record types used",
+            when: function (answers) {
+                return [
+                    "bloc",
+                    "bundle",
+                    "config",
+                    "mapreduce",
+                    "portlet",
+                    "repository",
+                    "scheduled",
+                    "static",
+                    "util",
+                ].indexOf(answers.type) === -1;
+            }
         }, {
             type: "input",
             name: "description",
