@@ -1,24 +1,17 @@
-import {EntryPoints} from "N/types";
-
 /**
- * Portlet script file
+ * Utility file
  *
  * WARNING:
  * TypeScript generated file, do not edit directly
  * source files are located in the the repository
  *
  * @description: <%= description %>
- * @records: <%= types %>
  *
  * @copyright <%= date %> <%= company_name %>
  * @author <%= user_name %> <<%= user_email %>>
  *
  * @NApiVersion 2.x
  * @NModuleScope SameAccount
- * @NScriptType Portlet
  */
 
-/** render event handler */
-export let render: EntryPoints.Portlet.render = (params: EntryPoints.Portlet.renderContext) => {
-    // Enter code here
-};
+export {};

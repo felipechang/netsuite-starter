@@ -7,20 +7,24 @@
  *
  * @description: <%= description %>
  *
- * @copyright <%= date} <%= company_name %>
+ * @copyright <%= date %> <%= company_name %>
  * @author <%= user_name %> <<%= user_email %>>
  *
  * @NApiVersion 2.x
  * @NModuleScope SameAccount
  */
 
-/** <%= namePascal %>Interface */
+/** <%= namePascal %>Repository */
 class <%= namePascal %>Interface {
+
+    /** Record Type */
+    private recordType: string;
 
     /** Constructor */
     constructor() {
         super();
+        this.recordType = "<%= custom %>";
     }
 }
 
-export default <%= namePascal %>Interface;
+export default <%= namePascal %>Repository;

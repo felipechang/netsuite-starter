@@ -10,7 +10,7 @@ import {EntryPoints} from "N/types";
  * @description: <%= description %>
  * @records: <%= types %>
  *
- * @copyright <%= date} <%= company_name %>
+ * @copyright <%= date %> <%= company_name %>
  * @author <%= user_name %> <<%= user_email %>>
  *
  * @NApiVersion 2.x

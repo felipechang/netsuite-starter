@@ -4,6 +4,8 @@ import {render} from "ejs";
 import {readFileSync, writeFileSync} from "fs";
 import {Answers, prompt as inquirerPrompt, QuestionCollection, Separator} from "inquirer";
 import * as moment from "moment";
+// @ts-ignore
+import * as recordTypes from "./types.json";
 
 dotenv.config();
 
@@ -26,28 +28,12 @@ const inquirerMenu: QuestionCollection = [{
         {name: "User Event", value: "userevent"},
         {name: "Workflow Action", value: "workflow"},
         new Separator("-- Auxiliary --"),
+        {name: "Bloc", value: "bloc"},
         {name: "Configuration", value: "config"},
         {name: "Repository", value: "repository"},
         {name: "Static", value: "static"},
+        {name: "Utility", value: "util"},
     ]
-}, {
-    type: "input",
-    name: "record",
-    message: "Enter record type",
-    when(answers): boolean {
-        return answers.type === "static";
-    }
-}, {
-    type: "list",
-    name: "custom",
-    message: "Is this a custom record",
-    choices: [
-        {name: "Yes", value: true},
-        {name: "No", value: false},
-    ],
-    when(answers): boolean {
-        return answers.type === "interface";
-    }
 }, {
     type: "input",
     name: "name",
@@ -69,12 +55,20 @@ const inquirerMenu: QuestionCollection = [{
 }, {
     type: "checkbox",
     name: "types",
-    choices: [
-        "customer",
-        "lead",
-        "prospect"
-    ],
+    choices: recordTypes,
     message: "Enter record types used",
+    when: (answers) => {
+        return [
+            "bloc",
+            "bundle",
+            "config",
+            "mapreduce",
+            "portlet",
+            "repository",
+            "scheduled",
+            "static",
+        ].indexOf(answers.type) === -1;
+    }
 }, {
     type: "input",
     name: "description",
