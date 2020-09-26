@@ -53,6 +53,6 @@
   "include": [
     "source",
     "assets",
-    "tests"
+    "__tests__"
   ]
 }
