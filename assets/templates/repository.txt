@@ -22,7 +22,7 @@ class <%= namePascal %>Repository {
 
     /** Constructor */
     constructor() {
-        this.recordType = "<%= custom %>";
+        this.recordType = "<%= record_type %>";
     }
 }
 

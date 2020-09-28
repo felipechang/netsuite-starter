@@ -13,7 +13,7 @@ dotenv.config();
 const inquirerMenu: QuestionCollection = [{
     type: "list",
     name: "type",
-    message: "Select script types to create",
+    message: "Select script types to create:",
     choices: [
         new Separator("-- Native --"),
         {name: "Bundle", value: "bundle"},
@@ -37,7 +37,7 @@ const inquirerMenu: QuestionCollection = [{
 }, {
     type: "input",
     name: "name",
-    message: "Enter script name",
+    message: "Enter script name:",
     default(): string {
         return "Unnamed";
     },
@@ -56,7 +56,7 @@ const inquirerMenu: QuestionCollection = [{
     type: "checkbox",
     name: "types",
     choices: recordTypes,
-    message: "Enter record types used",
+    message: "Enter record types used:",
     when: (answers) => {
         return [
             "bloc",
@@ -73,9 +73,16 @@ const inquirerMenu: QuestionCollection = [{
 }, {
     type: "input",
     name: "description",
-    message: "Enter description",
+    message: "Enter description:",
     default(): string {
         return "No description";
+    }
+}, {
+    type: "input",
+    name: "record_type",
+    message: "Enter record type:",
+    when: (answers) => {
+        return answers.type === "repository";
     }
 }];
 

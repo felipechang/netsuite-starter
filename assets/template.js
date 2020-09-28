@@ -21,7 +21,7 @@
     var inquirerMenu = [{
         type: "list",
         name: "type",
-        message: "Select script types to create",
+        message: "Select script types to create:",
         choices: [
             new inquirer_1.Separator("-- Native --"),
             { name: "Bundle", value: "bundle" },
@@ -45,7 +45,7 @@
     }, {
         type: "input",
         name: "name",
-        message: "Enter script name",
+        message: "Enter script name:",
         default: function () {
             return "Unnamed";
         },
@@ -61,7 +61,7 @@
         type: "checkbox",
         name: "types",
         choices: recordTypes,
-        message: "Enter record types used",
+        message: "Enter record types used:",
         when: function (answers) {
             return [
                 "bloc",
@@ -78,9 +78,16 @@
     }, {
         type: "input",
         name: "description",
-        message: "Enter description",
+        message: "Enter description:",
         default: function () {
             return "No description";
+        }
+    }, {
+        type: "input",
+        name: "record_type",
+        message: "Enter record type:",
+        when: function (answers) {
+            return answers.type === "repository";
         }
     }];
     // Start program
