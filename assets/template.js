@@ -109,6 +109,7 @@
             // Details
             types: (answer.types && answer.types.length > 0) ? answer.types.join(",") : "None",
             description: answer.description,
+            record_type: answer.record_type,
         }));
     });
 });
