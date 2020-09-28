@@ -19,7 +19,7 @@ class <%= namePascal %>Interface {
 
     /** Constructor */
     constructor() {
-        super();
+
     }
 }
 

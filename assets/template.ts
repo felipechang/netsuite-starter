@@ -47,7 +47,7 @@ const inquirerMenu: QuestionCollection = [{
         const t = c.test(s);
 
         if (!t) {
-            console.error("\nMust be snake case (name_of_file)");
+            console.error("Must be snake case (name_of_file)");
         }
 
         return t;
@@ -86,7 +86,7 @@ program.then((answer: Answers) => {
     const today = moment(new Date());
 
     const templateFile = `assets/templates/${answer.type}.txt`;
-    const fileName = `source/${answer.name}_${answer.type}.ts`;
+    const fileName = `source/${process.env.FILE_PREFIX}_${answer.name}_${answer.type}.ts`;
 
     const content = readFileSync(templateFile, "utf8");
 

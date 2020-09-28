@@ -22,7 +22,6 @@ class <%= namePascal %>Interface {
 
     /** Constructor */
     constructor() {
-        super();
         this.recordType = "<%= custom %>";
     }
 }
