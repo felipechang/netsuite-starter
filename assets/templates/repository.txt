@@ -15,7 +15,7 @@
  */
 
 /** <%= namePascal %>Repository */
-class <%= namePascal %>Interface {
+class <%= namePascal %>Repository {
 
     /** Record Type */
     private recordType: string;

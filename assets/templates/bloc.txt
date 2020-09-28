@@ -15,7 +15,7 @@
  */
 
 /** <%= namePascal %>Bloc */
-class <%= namePascal %>Interface {
+class <%= namePascal %>Bloc {
 
     /** Constructor */
     constructor() {
