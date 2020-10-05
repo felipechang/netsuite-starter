@@ -17,6 +17,7 @@ const sequentialExecution = (...commands: string[]): void => {
 
 // Will execute the commands in series
 sequentialExecution(
+    "npm test",
     "tslint source/**/*.ts",
     "tsc",
     "node assets/artifact.js",
