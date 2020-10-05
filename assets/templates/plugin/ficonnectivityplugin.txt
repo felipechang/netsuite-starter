@@ -1,0 +1,34 @@
+import {EntryPoints} from "N/types";
+
+/**
+ * Financial Institution Connectivity Plug-in script file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ * @records: <%= types %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ * @NScriptType fiConnectivityPlugin
+ */
+
+/** getConfigurationIFrameUrl event handler */
+export let getConfigurationIFrameUrl: EntryPoints.Plugins.FiConnectivity.getConfigurationIFrameUrl = (context: EntryPoints.Plugins.FiConnectivity.getConfigurationIFrameUrlContext) => {
+    // Enter code here
+};
+
+/** getAccounts event handler */
+export let getAccounts: EntryPoints.Plugins.FiConnectivity.getAccounts = (context: EntryPoints.Plugins.FiConnectivity.getAccountsContext) => {
+    // Enter code here
+};
+
+/** getTransactionData event handler */
+export let getTransactionData: EntryPoints.Plugins.FiConnectivity.getTransactionData = (context: EntryPoints.Plugins.FiConnectivity.getTransactionDataContext) => {
+    // Enter code here
+};
