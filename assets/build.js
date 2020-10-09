@@ -26,5 +26,5 @@
         }
     };
     // Will execute the commands in series
-    sequentialExecution("tslint source/**/*.ts", "tsc", "node assets/artifact.js");
+    sequentialExecution("npm test", "tslint source/**/*.ts", "tsc", "node assets/artifact.js");
 });
