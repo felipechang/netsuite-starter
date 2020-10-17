@@ -1,15 +1,18 @@
 # NetSuite Starter
 
-### Steps
-1) Fill in the details in the .env file
-2) Write your .ts code inside /source
-3) Type `npm run build` to make an artifact in /deploy
+## Instructions
 
-## Templates
-Type `npm run template` to generate template files
+1. Install command tool: `npm install -g netsuite-starter`
 
-## Test
-Oracle's SuiteCloud jest version
+2. Create new project: `nsx project`
+
+3. Fill in prompted details
+
+4. Enter working directory: `cd my-project`
+
+5. Install dependencies: `npm install`
+
+6. Read the README.md file  
 
 ## License
 GNU GPL see LICENSE.

@@ -1,4 +1,4 @@
-define(['./SearchPageRange'], function (SearchPageRange) {
+define(["./SearchPageRange"], function (SearchPageRange) {
     /**
      * @class SearchPagedData
      * @classdesc Holds metadata for a paginated query.

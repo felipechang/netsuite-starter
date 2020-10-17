@@ -1,4 +1,4 @@
-define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientResponse, SecretKey, SecureString) {
+define(["./ClientResponse", "./SecretKey", "./SecureString"], function (ClientResponse, SecretKey, SecureString) {
     /**
      * SuiteScript https module (Server Side)
      *
@@ -15,11 +15,11 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      * @enum {string}
      */
     function httpsMethod() {
-        this.GET = 'GET';
-        this.POST = 'POST';
-        this.PUT = 'PUT';
-        this.DELETE = 'DELETE';
-        this.HEAD = 'HEAD';
+        this.GET = "GET";
+        this.POST = "POST";
+        this.PUT = "PUT";
+        this.DELETE = "DELETE";
+        this.HEAD = "HEAD";
     }
 
     https.prototype.Method = new httpsMethod();
@@ -30,10 +30,10 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      * @readonly
      */
     function httpsCacheDuration() {
-        this.UNIQUE = 'UNIQUE';
-        this.SHORT = 'SHORT';
-        this.MEDIUM = 'MEDIUM';
-        this.LONG = 'LONG';
+        this.UNIQUE = "UNIQUE";
+        this.SHORT = "SHORT";
+        this.MEDIUM = "MEDIUM";
+        this.LONG = "LONG";
     }
 
     https.prototype.CacheDuration = new httpsCacheDuration();
@@ -54,9 +54,9 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      *
      * @since 2015.2
      */
-    https.prototype['get'] = function (options) {
+    https.prototype["get"] = function (options) {
     };
-    https.prototype['get'].promise = function (options) {
+    https.prototype["get"].promise = function (options) {
     };
 
     /**
@@ -119,9 +119,9 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      *
      * @since 2015.2
      */
-    https.prototype['delete'] = function (options) {
+    https.prototype["delete"] = function (options) {
     };
-    https.prototype['delete'].promise = function (options) {
+    https.prototype["delete"].promise = function (options) {
     };
 
     /**
@@ -171,12 +171,12 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      * @enum
      */
     function httpsEncoding() {
-        this.UTF_8 = 'UTF_8';
-        this.BASE_16 = 'BASE_16';
-        this.BASE_32 = 'BASE_32';
-        this.BASE_64 = 'BASE_64';
-        this.BASE_64_URL_SAFE = 'BASE_64_URL_SAFE';
-        this.HEX = 'HEX';
+        this.UTF_8 = "UTF_8";
+        this.BASE_16 = "BASE_16";
+        this.BASE_32 = "BASE_32";
+        this.BASE_64 = "BASE_64";
+        this.BASE_64_URL_SAFE = "BASE_64_URL_SAFE";
+        this.HEX = "HEX";
     }
 
     https.prototype.Encoding = new httpsEncoding();
@@ -185,10 +185,10 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      * @enum
      */
     function httpsHashAlg() {
-        this.SHA1 = 'SHA1';
-        this.SHA256 = 'SHA256';
-        this.SHA512 = 'SHA512';
-        this.MD5 = 'MD5';
+        this.SHA1 = "SHA1";
+        this.SHA256 = "SHA256";
+        this.SHA512 = "SHA512";
+        this.MD5 = "MD5";
     }
 
     https.prototype.HashAlg = new httpsHashAlg();
@@ -197,11 +197,11 @@ define(['./ClientResponse', './SecretKey', './SecureString'], function (ClientRe
      * @enum
      */
     function httpsRedirectType() {
-        this.RECORD = 'RECORD';
-        this.SUITELET = 'SUITELET';
-        this.RESTLET = 'RESTLET';
-        this.MEDIA_ITEM = 'MEDIAITEM';
-        this.TASK_LINK = 'TASKLINK';
+        this.RECORD = "RECORD";
+        this.SUITELET = "SUITELET";
+        this.RESTLET = "RESTLET";
+        this.MEDIA_ITEM = "MEDIAITEM";
+        this.TASK_LINK = "TASKLINK";
     }
 
     https.prototype.RedirectType = new httpsRedirectType();

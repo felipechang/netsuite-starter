@@ -1,4 +1,4 @@
-define(['./Result'], function (Result) {
+define(["./Result"], function (Result) {
     /**
      * Return a new instance of search.ResultSet object.
      *

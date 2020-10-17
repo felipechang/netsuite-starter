@@ -1,4 +1,4 @@
-define(['./RecordInstance'], function (Record) {
+define(["./RecordInstance"], function (Record) {
     /**
      * SuiteScript record common module
      *
@@ -80,7 +80,7 @@ define(['./RecordInstance'], function (Record) {
      * @param {number|string} options.fromId record id to be transformed from
      * @param {string} options.toType record type to be transformed to
      * @param {boolean} [options.isDynamic=false] record is dynamic
-     * @param {Object} [options.defaultValues={}] transformed record's default values
+     * @param {Object} [options.defaultValues={}] transformed record"s default values
      * @return {Record}
      *
      * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if options.type or options.id is missing

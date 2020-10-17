@@ -73,7 +73,7 @@ define([], function () {
          * @since 2015.2
          */
 
-        this['function'] = undefined;
+        this["function"] = undefined;
         /**
          * The sort direction for this search column. Use values from the Sort enum.
          * @name Column#sort

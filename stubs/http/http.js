@@ -1,4 +1,4 @@
-define(['./ClientResponse'], function (ClientResponse) {
+define(["./ClientResponse"], function (ClientResponse) {
     /**
      * SuiteScript module
      *
@@ -15,11 +15,11 @@ define(['./ClientResponse'], function (ClientResponse) {
      * @readonly
      */
     function httpMethod() {
-        this.GET = 'GET';
-        this.POST = 'POST';
-        this.PUT = 'PUT';
-        this.DELETE = 'DELETE';
-        this.HEAD = 'HEAD';
+        this.GET = "GET";
+        this.POST = "POST";
+        this.PUT = "PUT";
+        this.DELETE = "DELETE";
+        this.HEAD = "HEAD";
     }
 
     http.prototype.Method = new httpMethod();
@@ -30,10 +30,10 @@ define(['./ClientResponse'], function (ClientResponse) {
      * @readonly
      */
     function httpCacheDuration() {
-        this.UNIQUE = 'UNIQUE';
-        this.SHORT = 'SHORT';
-        this.MEDIUM = 'MEDIUM';
-        this.LONG = 'LONG';
+        this.UNIQUE = "UNIQUE";
+        this.SHORT = "SHORT";
+        this.MEDIUM = "MEDIUM";
+        this.LONG = "LONG";
     }
 
     http.prototype.CacheDuration = new httpCacheDuration();
@@ -54,9 +54,9 @@ define(['./ClientResponse'], function (ClientResponse) {
      *
      * @since 2015.2
      */
-    http.prototype['get'] = function (options) {
+    http.prototype["get"] = function (options) {
     };
-    http.prototype['get'].promise = function (options) {
+    http.prototype["get"].promise = function (options) {
     };
 
     /**
@@ -119,9 +119,9 @@ define(['./ClientResponse'], function (ClientResponse) {
      *
      * @since 2015.2
      */
-    http.prototype['delete'] = function (options) {
+    http.prototype["delete"] = function (options) {
     };
-    http.prototype['delete'].promise = function (options) {
+    http.prototype["delete"].promise = function (options) {
     };
 
     /**
@@ -152,11 +152,11 @@ define(['./ClientResponse'], function (ClientResponse) {
      * @readonly
      */
     function httpRedirectType() {
-        this.RECORD = 'RECORD';
-        this.SUITELET = 'SUITELET';
-        this.RESTLET = 'RESTLET';
-        this.MEDIA_ITEM = 'MEDIAITEM';
-        this.TASK_LINK = 'TASKLINK';
+        this.RECORD = "RECORD";
+        this.SUITELET = "SUITELET";
+        this.RESTLET = "RESTLET";
+        this.MEDIA_ITEM = "MEDIAITEM";
+        this.TASK_LINK = "TASKLINK";
     }
 
     http.prototype.RedirectType = new httpRedirectType();

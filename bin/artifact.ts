@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import {createWriteStream} from "fs";
 import * as moment from "moment";
 
-export const makeArtifact = (): void =>{
+export const makeArtifact = (): void => {
 
     dotenv.config();
     const date = new Date();
@@ -17,4 +17,4 @@ export const makeArtifact = (): void =>{
     archive.finalize().then(() => {
         console.log(`zip has been created for ${process.env.ARTIFACT_NAME}`);
     });
-}
+};

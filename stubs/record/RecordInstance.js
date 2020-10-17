@@ -1,4 +1,4 @@
-define(['./Line', './Sublist', './Field'], function (Line, Sublist, Field) {
+define(["./Line", "./Sublist", "./Field"], function (Line, Sublist, Field) {
 
     /**
      * Primary object used to encapsulate a record object.
@@ -481,7 +481,7 @@ define(['./Line', './Sublist', './Field'], function (Line, Sublist, Field) {
         };
 
         /**
-         * return field object from record's sublist
+         * return field object from record"s sublist
          * @param {Object} options
          * @param {string} options.sublistId
          * @param {string} options.fieldId
@@ -495,7 +495,7 @@ define(['./Line', './Sublist', './Field'], function (Line, Sublist, Field) {
         };
 
         /**
-         * return field object from record's sublist current line
+         * return field object from record"s sublist current line
          * @param {Object} options
          * @param {string} options.sublistId
          * @param {string} options.fieldId
