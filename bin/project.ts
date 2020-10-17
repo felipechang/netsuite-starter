@@ -21,11 +21,11 @@ export const makeProject = (): void => {
         name: "project-author",
         message: "Enter author name:",
         validate: (input): string | boolean => {
-            if (/^([A-Za-z\-_\d])+$/.test(input)) {
+            if (/^([A-Za-z\- ])+$/.test(input)) {
                 return true;
             }
 
-            return "May only include letters, numbers, underscores and hashes";
+            return "May only include letters and hashes";
         }
     }, {
         type: "input",
