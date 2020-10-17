@@ -41,7 +41,7 @@ export const makeProject = (): void => {
     }, {
         type: "input",
         name: "project-version",
-        message: "Enter project ID:",
+        message: "Enter project version:",
         when: (answers) => {
             return answers["project-type"] === "SUITEAPP";
         },

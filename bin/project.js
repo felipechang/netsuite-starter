@@ -39,7 +39,7 @@ exports.makeProject = function () {
         }, {
             type: "input",
             name: "project-version",
-            message: "Enter project ID:",
+            message: "Enter project version:",
             when: function (answers) {
                 return answers["project-type"] === "SUITEAPP";
             },
