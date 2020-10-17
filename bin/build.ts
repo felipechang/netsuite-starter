@@ -21,6 +21,6 @@ export const runBuild = (): void => {
         "npm test",
         "tslint source/**/*.ts",
         "tsc",
-        "node bin/artifact.js",
+        "nsx artifact",
     );
 };

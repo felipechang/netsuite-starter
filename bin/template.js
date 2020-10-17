@@ -85,8 +85,8 @@ exports.makeTemplate = function () {
         }]);
     program.then(function (answers) {
         var today = moment(new Date());
-        var templateFile = "assets/templates/" + answers.type + ".txt";
-        var fileName = __dirname + "/source/" + process.env.FILE_PREFIX + "_" + answers.name + "_" + answers.type + ".ts";
+        var templateFile = __dirname + "/templates/" + answers.type + ".txt";
+        var fileName = "source/" + process.env.FILE_PREFIX + "_" + answers.name + "_" + answers.type + ".ts";
         var content = fs_1.readFileSync(templateFile, "utf8");
         fs_1.writeFileSync(fileName, ejs_1.render(content, {
             // Generics

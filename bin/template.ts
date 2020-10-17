@@ -92,8 +92,8 @@ export const makeTemplate = () => {
 
         const today = moment(new Date());
 
-        const templateFile = `assets/templates/${answers.type}.txt`;
-        const fileName = `${__dirname}/source/${process.env.FILE_PREFIX}_${answers.name}_${answers.type}.ts`;
+        const templateFile = `${__dirname}/templates/${answers.type}.txt`;
+        const fileName = `source/${process.env.FILE_PREFIX}_${answers.name}_${answers.type}.ts`;
 
         const content = readFileSync(templateFile, "utf8");
 

@@ -11,6 +11,7 @@
     "suitescript",
     "suitecloud"
   ],
+  "main": "bin/config.js",
   "bin": {
     "nsx": "bin/index.js"
   },

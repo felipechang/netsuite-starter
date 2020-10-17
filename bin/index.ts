@@ -1,17 +1,7 @@
 #!/usr/bin/env node
 
 import {Answers, prompt as inquirerPrompt} from "inquirer";
-import {makeArtifact} from "./artifact";
-import {runBuild} from "./build";
-import {makeProject} from "./project";
-import {makeTemplate} from "./template";
-
-const PROCESS_OPTIONS = [
-    {name: "Create artifact", value: makeArtifact, parameter: "artifact"},
-    {name: "Start build process", value: runBuild, parameter: "build"},
-    {name: "New NetSuite project", value: makeProject, parameter: "project"},
-    {name: "New NetSuite file", value: makeTemplate, parameter: "template"},
-];
+import {PROCESS_OPTIONS} from "./config";
 
 const processes = PROCESS_OPTIONS.filter((option) => {
     return process.argv.indexOf(option.parameter) !== -1;

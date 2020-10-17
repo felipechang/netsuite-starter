@@ -18,5 +18,5 @@ exports.runBuild = function () {
             });
         }
     };
-    sequentialExecution("npm test", "tslint source/**/*.ts", "tsc", "node bin/artifact.js");
+    sequentialExecution("npm test", "tslint source/**/*.ts", "tsc", "nsx artifact");
 };
