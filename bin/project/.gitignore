@@ -1,0 +1,14 @@
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# IDEs and editors
+.idea
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.package-lock.json

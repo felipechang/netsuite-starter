@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
+    "target": "es5",
+    /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "module": "umd",
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "moduleResolution": "node",
     /* Generates corresponding '.map' file. */
@@ -21,7 +25,7 @@
     /* Ensure non-undefined class properties are initialized in the constructor. This option requires --strictNullChecks be enabled in order to take effect */
     "strictPropertyInitialization": true,
     /* Base directory to resolve non-absolute module names. */
-    "baseUrl": "./bin/",
+    "baseUrl": "./source",
     /* Report errors on unused locals */
     "noUnusedLocals": true,
     /* Report errors on unused parameters. */
@@ -30,8 +34,6 @@
     "noImplicitReturns": true,
     /* Report errors for fallthrough cases in switch statement */
     "noFallthroughCasesInSwitch": true,
-    /* Lets us import JSON modules from within TypeScript modules */
-    "resolveJsonModule": true,
     /* Specify library files to be included in the compilation. */
     "lib": [
       "es5",
@@ -49,6 +51,6 @@
     }
   },
   "include": [
-    "bin"
+    "source"
   ]
 }

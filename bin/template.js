@@ -1,24 +1,15 @@
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "change-case", "dotenv", "ejs", "fs", "inquirer", "moment", "./types.json"], factory);
-    }
-})(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var change_case_1 = require("change-case");
-    var dotenv = require("dotenv");
-    var ejs_1 = require("ejs");
-    var fs_1 = require("fs");
-    var inquirer_1 = require("inquirer");
-    var moment = require("moment");
-    // @ts-ignore
-    var recordTypes = require("./types.json");
+exports.__esModule = true;
+exports.makeTemplate = void 0;
+var change_case_1 = require("change-case");
+var dotenv = require("dotenv");
+var ejs_1 = require("ejs");
+var fs_1 = require("fs");
+var inquirer_1 = require("inquirer");
+var moment = require("moment");
+var recordTypes = require("./types.json");
+exports.makeTemplate = function () {
     dotenv.config();
-    // Inquirer menu options
-    var inquirerMenu = [{
+    var program = inquirer_1.prompt([{
             type: "list",
             name: "type",
             message: "Select script types to create:",
@@ -47,7 +38,7 @@
             type: "input",
             name: "name",
             message: "Enter script name:",
-            default: function () {
+            "default": function () {
                 return "Unnamed";
             },
             validate: function (s) {
@@ -81,7 +72,7 @@
             type: "input",
             name: "description",
             message: "Enter description:",
-            default: function () {
+            "default": function () {
                 return "No description";
             }
         }, {
@@ -91,13 +82,11 @@
             when: function (answers) {
                 return answers.type === "repository";
             }
-        }];
-    // Start program
-    var program = inquirer_1.prompt(inquirerMenu);
-    program.then(function (answer) {
+        }]);
+    program.then(function (answers) {
         var today = moment(new Date());
-        var templateFile = "assets/templates/" + answer.type + ".txt";
-        var fileName = "source/" + process.env.FILE_PREFIX + "_" + answer.name + "_" + answer.type + ".ts";
+        var templateFile = "assets/templates/" + answers.type + ".txt";
+        var fileName = __dirname + "/source/" + process.env.FILE_PREFIX + "_" + answers.name + "_" + answers.type + ".ts";
         var content = fs_1.readFileSync(templateFile, "utf8");
         fs_1.writeFileSync(fileName, ejs_1.render(content, {
             // Generics
@@ -107,11 +96,11 @@
             user_email: process.env.EMAIL,
             company_name: process.env.COMPANY_NAME,
             // Names
-            namePascal: change_case_1.pascalCase(answer.name),
+            namePascal: change_case_1.pascalCase(answers.name),
             // Details
-            types: (answer.types && answer.types.length > 0) ? answer.types.join(",") : "None",
-            description: answer.description,
-            record_type: answer.record_type,
+            types: (answers.types && answers.types.length > 0) ? answers.types.join(",") : "None",
+            description: answers.description,
+            record_type: answers.record_type
         }));
     });
-});
+};
