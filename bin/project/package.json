@@ -1,6 +1,6 @@
 {
-  "name": "<%= project %>",
-  "author": "<%= author %> <<%= email %>>",
+  "name": "<%= projectName %>",
+  "author": "<%= authorName %> <<%= authorEmail %>>",
   "license": "GPL-3.0",
   "version": "0.0.1",
   "description": "",
@@ -13,6 +13,6 @@
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.10",
     "jest": "^26.5.2",
-    "netsuite-starter": "^1.0.3"
+    "netsuite-starter": "^1.0.4"
   }
 }

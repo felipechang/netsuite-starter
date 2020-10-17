@@ -4,6 +4,6 @@ const stubs = require("netsuite-starter/stubs")
 
 module.exports = SuiteCloudJestConfiguration.build({
     projectFolder: cliConfig.defaultProjectFolder,
-    projectType: SuiteCloudJestConfiguration.ProjectType.ACP,
+    projectType: SuiteCloudJestConfiguration.ProjectType["<%= projectType %>"],
     customStubs: stubs
 });

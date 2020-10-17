@@ -1,0 +1,7 @@
+<manifest projecttype="SUITEAPP">
+    <publisherid><%= publisherId %></publisherid>
+    <projectid><%= projectId %></projectid>
+    <projectname><%= projectName %></projectname>
+    <projectversion><%= projectVersion %></projectversion>
+    <frameworkversion>1.0</frameworkversion>
+</manifest>

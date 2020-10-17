@@ -2,7 +2,9 @@
 
 ## Instructions
 
-1. Install command tool: `npm install -g netsuite-starter`
+1. Install SuiteCloud CLI for Node.js: `npm install -g @oracle/suitecloud-cli`
+
+1. Install NetSuite Starter CLI: `npm install -g netsuite-starter`
 
 2. Create new project: `nsx project`
 
@@ -12,7 +14,7 @@
 
 5. Install dependencies: `npm install`
 
-6. Read the README.md file  
+6. **Read the README.md file**  
 
 ## License
 GNU GPL see LICENSE.
