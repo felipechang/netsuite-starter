@@ -1,4 +1,4 @@
-import {render} from "ejs";
+import {Data, render} from "ejs";
 import {mkdirSync, readdirSync, readFileSync, statSync, writeFileSync} from "fs";
 import {Answers, prompt as inquirerPrompt} from "inquirer";
 
@@ -137,7 +137,7 @@ export const makeProject = (): void => {
         }
     });
 
-    const createDirectoryContents = (path: string, name: string, data: any) => {
+    const createDirectoryContents = (path: string, name: string, data: Data) => {
 
         const filesToCreate = readdirSync(path);
 

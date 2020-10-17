@@ -16,8 +16,55 @@ exports.makeProject = function () {
                 return "May only include letters, numbers, underscores and hashes";
             }
         }, {
+            type: "list",
+            name: "project-type",
+            message: "Enter project type:",
+            choices: [
+                { name: "Account Customization", value: "ACP" },
+                { name: "SuiteApp", value: "SUITEAPP" },
+            ]
+        }, {
             type: "input",
-            name: "project-author",
+            name: "project-id",
+            message: "Enter project ID:",
+            when: function (answers) {
+                return answers["project-type"] === "SUITEAPP";
+            },
+            validate: function (input) {
+                if (/^([a-z0-9])+$/.test(input) && input.length < 40) {
+                    return true;
+                }
+                return "May only include letters and numbers with less than 40 characters";
+            }
+        }, {
+            type: "input",
+            name: "project-version",
+            message: "Enter project ID:",
+            when: function (answers) {
+                return answers["project-type"] === "SUITEAPP";
+            },
+            validate: function (input) {
+                if (/^([0-9.])+$/.test(input)) {
+                    return true;
+                }
+                return "May only include numbers";
+            }
+        }, {
+            type: "input",
+            name: "publisher-id",
+            message: "Enter publisher ID [com.netsuite]:",
+            when: function (answers) {
+                return answers["project-type"] === "SUITEAPP";
+            },
+            validate: function (input) {
+                if (/^([a-z.])+$/.test(input)) {
+                    return true;
+                }
+                return "May only include letters";
+            }
+        }, {
+            type: "input",
+            name: "author-name",
             message: "Enter author name:",
             validate: function (input) {
                 if (/^([A-Za-z\- ])+$/.test(input)) {
@@ -27,7 +74,7 @@ exports.makeProject = function () {
             }
         }, {
             type: "input",
-            name: "project-email",
+            name: "author-email",
             message: "Enter author email:",
             validate: function (input) {
                 if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input)) {
@@ -37,7 +84,7 @@ exports.makeProject = function () {
             }
         }, {
             type: "input",
-            name: "project-company",
+            name: "company-name",
             message: "Enter company name:"
         }, {
             type: "input",
@@ -51,19 +98,29 @@ exports.makeProject = function () {
             }
         },]);
     program.then(function (answers) {
-        var project = answers["project-name"];
-        var author = answers["project-author"];
-        var email = answers["project-email"];
-        var company = answers["project-company"];
-        var prefix = answers["project-prefix"];
-        fs_1.mkdirSync(CURR_DIR + "/" + project);
-        createDirectoryContents(__dirname + "/project", project, {
-            project: project,
-            author: author,
-            email: email,
-            company: company,
-            prefix: prefix
-        });
+        var data = {
+            projectName: answers["project-name"],
+            projectType: answers["project-type"],
+            authorName: answers["author-name"],
+            authorEmail: answers["author-email"],
+            companyName: answers["company-name"],
+            filePrefix: answers["project-prefix"],
+            projectId: answers["project-id"],
+            projectVersion: answers["project-version"],
+            publisherId: answers["publisher-id"]
+        };
+        fs_1.mkdirSync(CURR_DIR + "/" + data.projectName);
+        createDirectoryContents(__dirname + "/project", data.projectName, data);
+        var partialPath = __dirname + "/partials/" + data.projectType;
+        if (data.projectType === "ACP") {
+            createDirectoryContents(partialPath, data.projectName + "/source", data);
+        }
+        if (data.projectType === "SUITEAPP") {
+            var project = data.publisherId + "." + data.projectId;
+            fs_1.mkdirSync(CURR_DIR + "/" + data.projectName + "/source/" + project);
+            createDirectoryContents(partialPath, data.projectName + "/source/" + project, data);
+            fs_1.mkdirSync(CURR_DIR + "/" + data.projectName + "/source/" + project + "/src/FileCabinet/SuiteApps/" + project);
+        }
     });
     var createDirectoryContents = function (path, name, data) {
         var filesToCreate = fs_1.readdirSync(path);
