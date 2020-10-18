@@ -1,4 +1,13 @@
-define([], function () {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Return a new instance of search.Result object.
      *
@@ -8,41 +17,39 @@ define([], function () {
      *
      * @since 2015.2
      */
-
-    function Result() {
-        /**
-         * Record type of the result.
-         * @name Result#recordType
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.recordType = undefined;
-        /**
-         * Record internal ID of the result.
-         * @name Result#id
-         * @type {number}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.id = undefined;
-        /**
-         * List of columns contained in this result.
-         * @name Result#columns
-         * @type {Column[]}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.columns = undefined;
+    var Result = /** @class */ (function () {
+        function Result() {
+            /**
+             * Record type of the result.
+             * @name Result#recordType
+             * @type {string}
+             * @readonly
+             * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+             *
+             * @since 2015.2
+             */
+            this.recordType = undefined;
+            /**
+             * Record internal ID of the result.
+             * @name Result#id
+             * @type {number}
+             * @readonly
+             * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+             *
+             * @since 2015.2
+             */
+            this.id = undefined;
+            /**
+             * List of columns contained in this result.
+             * @name Result#columns
+             * @type {Column[]}
+             * @readonly
+             * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+             *
+             * @since 2015.2
+             */
+            this.columns = undefined;
+        }
         /**
          * Returns the value of a specified search return column. The column may be specified in two ways:
          * 1) by providing a search.Column object
@@ -61,10 +68,12 @@ define([], function () {
          *
          * @since 2015.2
          */
-
-        this.getValue = function (options) {
+        Result.prototype.getValue = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * Returns the UI display name (i.e. the text value) of a specified search return column.
          * Note that this method is supported on select, image and document fields only.
@@ -85,32 +94,31 @@ define([], function () {
          *
          * @since 2015.2
          */
-
-        this.getText = function (options) {
+        Result.prototype.getText = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
-         * Returns the object type name (search.Result)
+         * Returns the object type name (search.Filter)
          * @governance none
          * @return {string}
          *
          * @since 2015.2
          */
-
-        this.toString = function () {
+        Result.prototype.toString = function () {
         };
-
         /**
          * get JSON format of the object
-         * @gonvernance 0
+         * @governance none
          * @return {Object}
          *
          * @since 2015.2
          */
-
-        this.toJSON = function () {
+        Result.prototype.toJSON = function () {
         };
-    }
-
-    return new Result();
+        return Result;
+    }());
+    exports.default = Result;
 });

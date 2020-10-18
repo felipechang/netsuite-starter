@@ -23,6 +23,7 @@ export const makeProject = (): void => {
         choices: [
             {name: "Account Customization", value: "ACP"},
             {name: "SuiteApp", value: "SUITEAPP"},
+            {name: "Empty", value: ""},
         ]
     }, {
         type: "input",

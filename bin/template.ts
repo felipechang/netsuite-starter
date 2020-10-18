@@ -4,6 +4,7 @@ import {render} from "ejs";
 import {readFileSync, writeFileSync} from "fs";
 import {Answers, prompt as inquirerPrompt, Separator} from "inquirer";
 import * as moment from "moment";
+// @ts-ignore
 import * as recordTypes from "./types.json";
 
 export const makeTemplate = () => {

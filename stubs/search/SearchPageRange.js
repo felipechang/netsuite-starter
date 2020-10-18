@@ -1,4 +1,13 @@
-define([], function () {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * @class SearchPageRange
      * @classDescription Defines the page range to contain the result set
@@ -7,38 +16,34 @@ define([], function () {
      *
      * @since 2015.2
      */
-
-    function SearchPageRange() {
+    var SearchPageRange = /** @class */ (function () {
+        function SearchPageRange() {
+        }
         /**
          * @governance none
          * @return {number}
          *
          * @since 2015.2
          */
-
-        this.getIndex = function () {
+        SearchPageRange.prototype.getIndex = function () {
         };
-
         /**
          * @governance none
          * @return {string}
          *
          * @since 2015.2
          */
-
-        this.getCompoundKey = function () {
+        SearchPageRange.prototype.getCompoundKey = function () {
         };
-
         /**
          * @governance none
          * @return {string}
          *
          * @since 2015.2
          */
-
-        this.getCompoundLabel = function () {
+        SearchPageRange.prototype.getCompoundLabel = function () {
         };
-    }
-
-    return new SearchPageRange();
+        return SearchPageRange;
+    }());
+    exports.default = SearchPageRange;
 });

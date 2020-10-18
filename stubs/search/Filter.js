@@ -1,4 +1,13 @@
-define([], function () {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Return a new instance of search.Filter object.
      *
@@ -10,60 +19,9 @@ define([], function () {
      *
      * @since 2015.2
      */
-
-    function Filter() {
-        /**
-         * Name or internal ID of the search field as a string.
-         * @name Filter#name
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.name = undefined;
-        /**
-         * Join ID for the search filter as a string.
-         * @name Filter#join
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.join = undefined;
-        /**
-         * Operator used for the search filter.
-         * @name Filter#operator
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.operator = undefined;
-        /**
-         * Summary type for the search filter.
-         * @name Filter#summary
-         * @type {string}
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER_SUM when setting invalid summary type
-         *
-         * @since 2015.2
-         */
-
-        this.summary = undefined;
-        /**
-         * Formula used by the search filter.
-         * @name Filter#formula
-         * @type {string}
-         *
-         * @since 2015.2
-         */
-
-        this.formula = undefined;
+    var Filter = /** @class */ (function () {
+        function Filter() {
+        }
         /**
          * Returns the object type name (search.Filter)
          * @governance none
@@ -71,10 +29,8 @@ define([], function () {
          *
          * @since 2015.2
          */
-
-        this.toString = function () {
+        Filter.prototype.toString = function () {
         };
-
         /**
          * get JSON format of the object
          * @governance none
@@ -82,10 +38,9 @@ define([], function () {
          *
          * @since 2015.2
          */
-
-        this.toJSON = function () {
+        Filter.prototype.toJSON = function () {
         };
-    }
-
-    return new Filter();
+        return Filter;
+    }());
+    exports.default = Filter;
 });

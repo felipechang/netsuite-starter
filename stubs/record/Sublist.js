@@ -1,94 +1,122 @@
-define([], function () {
-
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Return a new instance of sublist object
      *
      * @param {Object} sublist
      * @param {string} sublist.type type of sublist
      * @param {SublistState} sublist.sublistState SublistState
-
+    
      * @return {Sublist}
      * @constructor
      *
      * @since 2015.2
      */
-    function Sublist() {
+    var Sublist = /** @class */ (function () {
+        function Sublist() {
+        }
         /**
          * The name of the sublist.
          * @name Sublist#name
          * @type string
          * @readonly
          */
-
-        this.getName = function (options) {
+        Sublist.prototype.getName = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * The type of the sublist.
          * @name Sublist#type
          * @type string
          * @readonly
          */
-
-        this.getType = function (options) {
+        Sublist.prototype.getType = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * The sublist is changed
          * @name Sublist#isChanged
          * @type boolean
          * @readonly
          */
-
-        this.isChanged = function (options) {
+        Sublist.prototype.isChanged = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * The sublist is hidden
          * @name Sublist#isHidden
          * @type boolean
          * @readonly
          */
-
-        this.isHidden = function (options) {
+        Sublist.prototype.isHidden = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * The sublist is display
          * @name Sublist#isDisplay
          * @type boolean
          * @readonly
          */
-
-        this.isDisplay = function (options) {
+        Sublist.prototype.isDisplay = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * A flag to indicate whether or not the sublist supports multi-line buffer feature.
          * @name Sublist#isMultilineEditable
          * @type boolean
          * @readonly
          */
-
-        this.isMultilineEditable = function (options) {
+        Sublist.prototype.isMultilineEditable = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
-         * Returns the object type name (sublist.Sublist)
-         * @returns {string}
+         * get JSON format of the object
+         * @return {{id: *, label: *, type: *}}
+         *
          */
-
-        this.toString = function (options) {
+        Sublist.prototype.toJSON = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
-         * JSON.stringify() implementation.
-         * @returns {{id: string, type: string, isChanged: boolean, isDisplay: boolean}}
+         * @return {string}
+         *
          */
-
-        this.toJSON = function (options) {
+        Sublist.prototype.toString = function (options) {
+            if (options) {
+                //
+            }
         };
-    }
-
-    return new Sublist();
+        ;
+        return Sublist;
+    }());
+    exports.default = Sublist;
 });

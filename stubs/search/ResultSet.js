@@ -1,4 +1,13 @@
-define(["./Result"], function (Result) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Return a new instance of search.ResultSet object.
      *
@@ -8,19 +17,19 @@ define(["./Result"], function (Result) {
      *
      * @since 2015.2
      */
-
-    function ResultSet() {
-        /**
-         * List of columns contained in this result set.
-         * @name ResultSet#columns
-         * @type {Column[]}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.columns = undefined;
+    var ResultSet = /** @class */ (function () {
+        function ResultSet() {
+            /**
+             * List of columns contained in this result set.
+             * @name ResultSet#columns
+             * @type {Column[]}
+             * @readonly
+             * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+             *
+             * @since 2015.2
+             */
+            this.columns = undefined;
+        }
         /**
          * Retrieve a slice of the search result set. Only 1000 results can be returned at a time. If there are fewer results
          * available than requested, then the array will be truncated.
@@ -34,10 +43,12 @@ define(["./Result"], function (Result) {
          *
          * @since 2015.2
          */
-
-        this.getRange = function (options) {
+        ResultSet.prototype.getRange = function (options) {
+            if (options) {
+                //
+            }
         };
-
+        ;
         /**
          * Calls the developer-defined callback function for every result in this set. The result set processed by each()
          * may have maximum 4000 rows. The callback function has the following signature: boolean callback(result.Result
@@ -49,21 +60,21 @@ define(["./Result"], function (Result) {
          * @return {void}
          * @since 2015.2
          */
-
-        this.each = function (options) {
+        ResultSet.prototype.each = function (callback) {
+            if (typeof callback) {
+                //
+            }
         };
-
+        ;
         /**
-         * Returns the object type name (search.ResultSet)
+         * Returns the object type name (search.Filter)
          * @governance none
          * @return {string}
          *
          * @since 2015.2
          */
-
-        this.toString = function () {
+        ResultSet.prototype.toString = function () {
         };
-
         /**
          * get JSON format of the object
          * @governance none
@@ -71,10 +82,9 @@ define(["./Result"], function (Result) {
          *
          * @since 2015.2
          */
-
-        this.toJSON = function () {
+        ResultSet.prototype.toJSON = function () {
         };
-    }
-
-    return new ResultSet();
+        return ResultSet;
+    }());
+    exports.default = ResultSet;
 });

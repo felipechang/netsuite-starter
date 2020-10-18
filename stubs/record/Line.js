@@ -1,20 +1,17 @@
-define([], function () {
-
-    /**
-     * Primary object used to encapsulate a record sublist line object.
-     *
-     * @protected
-     * @param {Object} options
-     * @param {Record} options.unproxiedRecord - Instance of recordDefinition that owns the Line object.
-     * @param {string} options.sublistId
-     * @param {string} options.lineInstanceId
-     * @param {boolean} options.fromBuffer
-     * @param {boolean} options.isReadOnly
-     * @return {Line}
-     * @constructor
-     */
-    function Line() {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-
-    return new Line();
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Line = /** @class */ (function () {
+        function Line() {
+        }
+        return Line;
+    }());
+    exports.default = Line;
 });

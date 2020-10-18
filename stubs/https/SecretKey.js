@@ -1,59 +1,47 @@
-define([], function () {
-    /**
-     * Returns a new instance of SecretKey used for hmac, cipher and decipher
-     *
-     * @protected
-     * @class
-     * @classdesc
-     * @param guid
-     * @param encoding
-     * @return {crypto.SecretKey}
-     *
-     * @constructor
-     */
-    function SecretKey() {
+/**
+ * Returns a new instance of SecretKey used for hmac, cipher and decipher
+ *
+ * @protected
+ * @class
+ * @classdesc
+ * @param guid
+ * @param encoding
+ * @return {crypto.SecretKey}
+ *
+ * @constructor
+ */
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var SecretKey = /** @class */ (function () {
+        function SecretKey() {
+        }
         /**
-         * The GUID associated with the secret key.
-         * @name SecretKey#guid
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-        this.guid = undefined;
-        /**
-         * The encoding used for the clear text value of the secret key.
-         * @name SecretKey#encoding
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY_PROPERTY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-        this.encoding = undefined;
-        /**
-         * Returns the object type name (crypto.SecretKey)
-         * @restriction Server SuiteScript only
+         * Returns the object type name (http.ClientResponse)
          * @governance none
-         * @return {string}
+         * @returns {string}
          *
          * @since 2015.2
          */
-        this.toString = function () {
+        SecretKey.prototype.toString = function () {
         };
-
         /**
          * get JSON format of the object
-         * @restriction Server SuiteScript only
          * @governance none
-         * @return {Object}
+         * @returns {{type: string, code: *, headers: *, body: *}}
          *
-         * @since 2020.1
+         * @since 2015.2
          */
-        this.toJSON = function () {
+        SecretKey.prototype.toJSON = function () {
         };
-    }
-
-    return new SecretKey();
+        return SecretKey;
+    }());
+    exports.default = SecretKey;
 });

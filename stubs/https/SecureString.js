@@ -1,20 +1,30 @@
-define([], function () {
-    /**
-     *
-     * @protected
-     * @constructor
-     */
-    function SecureString() {
-
+/**
+ *
+ * @protected
+ * @constructor
+ */
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var SecureString = /** @class */ (function () {
+        function SecureString() {
+        }
         /**
          *
          * @param {Object} options
          * @param {string} options.toEncoding
          * @returns {SecureString}
          */
-        this.convertEncoding = function (options) {
+        SecureString.prototype.convertEncoding = function () {
         };
-
+        ;
         /**
          *
          * @param {Object} options
@@ -22,27 +32,27 @@ define([], function () {
          * @param {string} options.inputEncoding
          * @returns {SecureString}
          */
-        this.appendString = function (options) {
+        SecureString.prototype.appendString = function () {
         };
-
+        ;
         /**
          *
          * @param {Object} options
          * @param {SecureString} options.secureString
          * @returns {SecureString}
          */
-        this.appendSecureString = function (options) {
+        SecureString.prototype.appendSecureString = function () {
         };
-
+        ;
         /**
          *
          * @param {Object} options
          * @param {string} options.algorithm
          * @returns {SecureString}
          */
-        this.hash = function (options) {
+        SecureString.prototype.hash = function () {
         };
-
+        ;
         /**
          *
          * @param {Object}options
@@ -50,9 +60,10 @@ define([], function () {
          * @param {SecretKey} options.key
          * @returns {SecureString}
          */
-        this.hmac = function (options) {
+        SecureString.prototype.hmac = function () {
         };
-    }
-
-    return new SecureString();
+        ;
+        return SecureString;
+    }());
+    exports.default = SecureString;
 });

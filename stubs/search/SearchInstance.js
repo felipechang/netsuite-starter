@@ -1,4 +1,13 @@
-define(["./SearchPagedData", "./ResultSet"], function (SearchPagedData, ResultSet) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Return a new instance of search.Search object.
      *
@@ -17,112 +26,103 @@ define(["./SearchPagedData", "./ResultSet"], function (SearchPagedData, ResultSe
      *
      * @since 2015.2
      */
-
-    function Search() {
-        /**
-         * Internal ID name of the record type on which a search is based.
-         * @name Search#searchType
-         * @type {string}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.searchType = undefined;
-        /**
-         * Internal ID of the search.
-         * @name Search#searchId
-         * @type {number}
-         * @readonly
-         * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
-         *
-         * @since 2015.2
-         */
-
-        this.searchId = undefined;
-        /**
-         * Filters for the search as an array of Filter objects.
-         * @name Search#filters
-         * @type {Filter[]}
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER Invalid value for search filter type.
-         * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When any filter to assign is of invalid type
-         *
-         * @since 2015.2
-         */
-
-        this.filters = undefined;
-        /**
-         * Use filter expressions as a shortcut to create filters (search.Filter).
-         * @name Search#filterExpression
-         * @type {Object[]}
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER_EXPR The options.filters parameter is not a valid search filter, filter array, or filter expression.
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER Invalid value for search filter type.
-         * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When filterExpression contains a member with invalid type
-         *
-         * @since 2015.2
-         */
-
-        this.filterExpression = undefined;
-        /**
-         * Columns to return for this search as an array of search.Column objects or a string array of column names.
-         * @name Search#columns
-         * @type {Column[]|string[]}
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_COLUMN when setting value of different type than search.Column or string
-         * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When any column to assign is of invalid type
-         *
-         * @since 2015.2
-         */
-
-        this.columns = undefined;
-        /**
-         * Search settings for this search as an array of search.Setting objects or a string array of column names.
-         * @name Search#settings
-         * @type Setting[]|string[] (setter accepts also a single search.Setting or string)
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_SETTING An unknown search parameter name is provided.
-         * @throws {SuiteScriptError} SSS_INVALID_SRCH_SETTING_VALUE An unsupported value is set for the provided search parameter name.
-         * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When any setting to assign is of invalid type
-         *
-         * @ince 2018.2
-         */
-
-        this.settings = undefined;
-        /**
-         * Title for a saved search. Use this property to set the title for a search before you save it for the first time.
-         * @name Search#title
-         * @type {string}
-         *
-         * @since 2015.2
-         */
-
-        this.title = undefined;
-        /**
-         * Script ID for a saved search, starting with customsearch. If you do not set this property and then save the search, NetSuite generates a script ID for you.
-         * @name Search#id
-         * @type {string}
-         *
-         * @since 2015.2
-         */
-
-        this.id = undefined;
-        /**
-         * The application ID for this search.
-         * @name Search#package
-         * @type {string}
-         *
-         * @since 2019.2
-         */
-
-        this.packageId = undefined;
-        /**
-         * Value is true if the search is public, or false if it is not. By default, all searches created through search.create(options) are private.
-         * @name Search#isPublic
-         * @type {boolean}
-         *
-         * @since 2015.2
-         */
-
-        this.isPublic = undefined;
+    var Search = /** @class */ (function () {
+        function Search() {
+            /**
+             * Internal ID name of the record type on which a search is based.
+             * @name Search#searchType
+             * @type {string}
+             * @readonly
+             * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+             *
+             * @since 2015.2
+             */
+            this.searchType = undefined;
+            /**
+             * Internal ID of the search.
+             * @name Search#searchId
+             * @type {number}
+             * @readonly
+             * @throws {SuiteScriptError} READ_ONLY when setting the property is attempted
+             *
+             * @since 2015.2
+             */
+            this.searchId = undefined;
+            /**
+             * Filters for the search as an array of Filter objects.
+             * @name Search#filters
+             * @type {Filter[]}
+             * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER Invalid value for search filter type.
+             * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When any filter to assign is of invalid type
+             *
+             * @since 2015.2
+             */
+            this.filters = undefined;
+            /**
+             * Use filter expressions as a shortcut to create filters (search.Filter).
+             * @name Search#filterExpression
+             * @type {Object[]}
+             * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER_EXPR The options.filters parameter is not a valid search filter, filter array, or filter expression.
+             * @throws {SuiteScriptError} SSS_INVALID_SRCH_FILTER Invalid value for search filter type.
+             * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When filterExpression contains a member with invalid type
+             *
+             * @since 2015.2
+             */
+            this.filterExpression = undefined;
+            /**
+             * Columns to return for search as an array of search.Column objects or a string array of column names.
+             * @name Search#columns
+             * @type {Column[]|string[]}
+             * @throws {SuiteScriptError} SSS_INVALID_SRCH_COLUMN when setting value of different type than search.Column or string
+             * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When any column to assign is of invalid type
+             *
+             * @since 2015.2
+             */
+            this.columns = undefined;
+            /**
+             * Search settings for search as an array of search.Setting objects or a string array of column names.
+             * @name Search#settings
+             * @type Setting[]|string[] (setter accepts also a single search.Setting or string)
+             * @throws {SuiteScriptError} SSS_INVALID_SRCH_SETTING An unknown search parameter name is provided.
+             * @throws {SuiteScriptError} SSS_INVALID_SRCH_SETTING_VALUE An unsupported value is set for the provided search parameter name.
+             * @throws {SuiteScriptError} WRONG_PARAMETER_TYPE When any setting to assign is of invalid type
+             *
+             * @ince 2018.2
+             */
+            this.settings = undefined;
+            /**
+             * Title for a saved search. Use property to set the title for a search before you save it for the first time.
+             * @name Search#title
+             * @type {string}
+             *
+             * @since 2015.2
+             */
+            this.title = undefined;
+            /**
+             * Script ID for a saved search, starting with customsearch. If you do not set property and then save the search, NetSuite generates a script ID for you.
+             * @name Search#id
+             * @type {string}
+             *
+             * @since 2015.2
+             */
+            this.id = undefined;
+            /**
+             * The application ID for search.
+             * @name Search#package
+             * @type {string}
+             *
+             * @since 2019.2
+             */
+            this.packageId = undefined;
+            /**
+             * Value is true if the search is public, or false if it is not. By default, all searches created through search.create(options) are private.
+             * @name Search#isPublic
+             * @type {boolean}
+             *
+             * @since 2015.2
+             */
+            this.isPublic = undefined;
+        }
         /**
          * Saves a search created by search.create(options) or loaded with search.load(options). Returns the internal ID of the saved search.
          * @governance 5 units
@@ -133,12 +133,8 @@ define(["./SearchPagedData", "./ResultSet"], function (SearchPagedData, ResultSe
          *
          * @since 2015.2
          */
-
-        this.save = function (options) {
+        Search.prototype.save = function () {
         };
-        this.save.promise = function (options) {
-        };
-
         /**
          * Runs an on-demand search created with search.create(options) or a search loaded with search.load(options), returning the results as a search.ResultSet.
          * @governance none
@@ -146,23 +142,17 @@ define(["./SearchPagedData", "./ResultSet"], function (SearchPagedData, ResultSe
          *
          * @since 2015.2
          */
-
-        this.run = function () {
+        Search.prototype.run = function () {
         };
-
         /**
-         * Runs the current search and returns summary information about paginated results. Calling this method does not give you the result set or save the search.
+         * Runs the current search and returns summary information about paginated results. Calling method does not give you the result set or save the search.
          * @governance none
          * @return {SearchPagedData} PagedData object that allows user to page through the search result
          *
          * @since 2016.1
          */
-
-        this.runPaged = function (options) {
+        Search.prototype.runPaged = function () {
         };
-        this.runPaged.promise = function (options) {
-        };
-
         /**
          * Returns the object type name (search.Search)
          * @governance none
@@ -170,10 +160,8 @@ define(["./SearchPagedData", "./ResultSet"], function (SearchPagedData, ResultSe
          *
          * @since 2015.2
          */
-
-        this.toString = function () {
+        Search.prototype.toString = function () {
         };
-
         /**
          * get JSON format of the object
          * @governance none
@@ -181,10 +169,9 @@ define(["./SearchPagedData", "./ResultSet"], function (SearchPagedData, ResultSe
          *
          * @since 2015.2
          */
-
-        this.toJSON = function () {
+        Search.prototype.toJSON = function () {
         };
-    }
-
-    return new Search();
+        return Search;
+    }());
+    exports.default = new Search();
 });
