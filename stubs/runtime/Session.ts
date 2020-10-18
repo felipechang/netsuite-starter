@@ -1,4 +1,7 @@
-import {GetParameterOptions} from "./runtime";
+interface GetParameterOptions {
+    /** The name of the script parameter. */
+    name: string;
+}
 
 interface SetOptions {
     /** Key used to store the runtime.Session. */

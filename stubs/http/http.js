@@ -7,7 +7,6 @@
         define(["require", "exports", "./ClientResponse"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     var ClientResponse_1 = require("./ClientResponse");
     /**
      * SuiteScript module
@@ -168,5 +167,5 @@
         };
         return Http;
     }());
-    exports.default = new Http();
+    return new Http();
 });

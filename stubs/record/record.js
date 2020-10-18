@@ -7,7 +7,6 @@
         define(["require", "exports"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * SuiteScript record common module
      *
@@ -433,5 +432,5 @@
         ;
         return record;
     }());
-    exports.default = new record();
+    return new record();
 });

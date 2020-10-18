@@ -13,4 +13,4 @@ class Log {
     }
 }
 
-export default new Log();
+export = new Log();

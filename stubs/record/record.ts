@@ -422,4 +422,4 @@ class record {
     };
 }
 
-export default new record();
+export = new record();

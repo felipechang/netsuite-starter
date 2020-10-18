@@ -7,8 +7,6 @@
         define(["require", "exports", "./Script", "./Session", "./User"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Permission = void 0;
     var Script_1 = require("./Script");
     var Session_1 = require("./Session");
     var User_1 = require("./User");
@@ -48,15 +46,6 @@
         EnvType["BETA"] = "BETA";
         EnvType["INTERNAL"] = "INTERNAL";
     })(EnvType || (EnvType = {}));
-    /** Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method. */
-    var Permission;
-    (function (Permission) {
-        Permission["FULL"] = "FULL";
-        Permission["EDIT"] = "EDIT";
-        Permission["CREATE"] = "CREATE";
-        Permission["VIEW"] = "VIEW";
-        Permission["NONE"] = "NONE";
-    })(Permission = exports.Permission || (exports.Permission = {}));
     var runtime = /** @class */ (function () {
         function runtime() {
         }
@@ -85,5 +74,5 @@
         ;
         return runtime;
     }());
-    exports.default = new runtime();
+    return new runtime();
 });

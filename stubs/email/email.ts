@@ -128,4 +128,4 @@ class Email {
     sendCampaign = sendCampaign;
 }
 
-export default new Email();
+export = new Email();

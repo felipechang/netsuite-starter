@@ -2,11 +2,6 @@ import Script from "./Script";
 import Session from "./Session";
 import User from "./User";
 
-export interface GetParameterOptions {
-    /** The name of the script parameter. */
-    name: string;
-}
-
 interface FeatureOptions {
     /** The internal ID of the feature to check. */
     feature: string;
@@ -46,15 +41,6 @@ enum EnvType {
     PRODUCTION = "PRODUCTION",
     BETA = "BETA",
     INTERNAL = "INTERNAL",
-}
-
-/** Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method. */
-export enum Permission {
-    FULL = "FULL",
-    EDIT = "EDIT",
-    CREATE = "CREATE",
-    VIEW = "VIEW",
-    NONE = "NONE",
 }
 
 class runtime {
@@ -101,4 +87,4 @@ class runtime {
     };
 }
 
-export default new runtime();
+export = new runtime();

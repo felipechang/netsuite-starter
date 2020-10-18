@@ -7,7 +7,6 @@
         define(["require", "exports"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     var send = function () {
     };
     var sendBulk = function () {
@@ -33,5 +32,5 @@
         }
         return Email;
     }());
-    exports.default = new Email();
+    return new Email();
 });

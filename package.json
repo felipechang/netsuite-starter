@@ -2,7 +2,7 @@
   "name": "netsuite-starter",
   "author": "Felipe Chang <felipechang@hardcake.org>",
   "license": "GPL-3.0",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Scaffold to build NetSuite account customizations",
   "keywords": [
     "netsuite",

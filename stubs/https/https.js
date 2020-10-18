@@ -7,7 +7,6 @@
         define(["require", "exports", "../http/ClientResponse", "./SecretKey", "./SecureString"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     var ClientResponse_1 = require("../http/ClientResponse");
     var SecretKey_1 = require("./SecretKey");
     var SecureString_1 = require("./SecureString");
@@ -218,5 +217,5 @@
         };
         return Https;
     }());
-    exports.default = new Https();
+    return new Https();
 });

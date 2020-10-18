@@ -13,6 +13,6 @@
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.10",
     "jest": "^26.5.2",
-    "netsuite-starter": "1.0.10"
+    "netsuite-starter": "1.0.11"
   }
 }

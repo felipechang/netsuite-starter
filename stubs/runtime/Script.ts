@@ -1,4 +1,7 @@
-import {GetParameterOptions} from "./runtime";
+interface GetParameterOptions {
+    /** The name of the script parameter. */
+    name: string;
+}
 
 /** Encapsulates the runtime settings of the currently executing script. */
 class Script {

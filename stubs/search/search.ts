@@ -591,4 +591,4 @@ class search {
     };
 }
 
-export default new search();
+export = new search();

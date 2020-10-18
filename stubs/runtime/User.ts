@@ -1,4 +1,16 @@
-import {GetParameterOptions, Permission} from "./runtime";
+interface GetParameterOptions {
+    /** The name of the script parameter. */
+    name: string;
+}
+
+/** Enumeration that holds the user permission level for a specific permission ID. Returned by the User.getPermission(options) method. */
+enum Permission {
+    FULL = "FULL",
+    EDIT = "EDIT",
+    CREATE = "CREATE",
+    VIEW = "VIEW",
+    NONE = "NONE",
+}
 
 /** Encapsulates the properties and preferences for the user of the currently executing script. */
 class User {
@@ -11,6 +23,7 @@ class User {
 
         return Permission.NONE;
     }
+
     /** Returns the value of a NetSuite preference. */
     getPreference(options: GetParameterOptions): string {
         if (options) {
@@ -19,6 +32,7 @@ class User {
 
         return "";
     }
+
     /** The internal ID of the department for the currently logged-in user. */
     department: number | undefined;
     /** The email address of the currently logged-in user. */

@@ -7,7 +7,6 @@
         define(["require", "exports"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     var Log = /** @class */ (function () {
         function Log() {
         }
@@ -21,5 +20,5 @@
         };
         return Log;
     }());
-    exports.default = new Log();
+    return new Log();
 });

@@ -4,6 +4,10 @@
 
 module.exports = [
     {
+        module: "N/email",
+        path: `<rootDir>node_modules/netsuite-starter/stubs/email/email.js`,
+    },
+    {
         module: "N/http",
         path: `<rootDir>node_modules/netsuite-starter/stubs/http/http.js`,
     },
@@ -49,19 +53,19 @@ module.exports = [
     },
     {
         module: "N/runtime",
-        path: `<rootDir>node_modules/netsuite-starter/stubs/search/runtime.js`,
+        path: `<rootDir>node_modules/netsuite-starter/stubs/runtime/runtime.js`,
     },
     {
         module: "N/runtime/script",
-        path: `<rootDir>node_modules/netsuite-starter/stubs/search/Script.js`,
+        path: `<rootDir>node_modules/netsuite-starter/stubs/runtime/Script.js`,
     },
     {
         module: "N/runtime/session",
-        path: `<rootDir>node_modules/netsuite-starter/stubs/search/Session.js`,
+        path: `<rootDir>node_modules/netsuite-starter/stubs/runtime/Session.js`,
     },
     {
         module: "N/runtime/user",
-        path: `<rootDir>node_modules/netsuite-starter/stubs/search/User.js`,
+        path: `<rootDir>node_modules/netsuite-starter/stubs/runtime/User.js`,
     },
     {
         module: "N/search",

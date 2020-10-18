@@ -7,7 +7,6 @@
         define(["require", "exports"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * SuiteScript search common module
      * Load the search module to create and run on-demand or saved searches and analyze and iterate through the search results.
@@ -587,5 +586,5 @@
         ;
         return search;
     }());
-    exports.default = new search();
+    return new search();
 });

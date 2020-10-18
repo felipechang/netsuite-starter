@@ -219,4 +219,4 @@ class Https {
     }
 }
 
-export default new Https();
+export = new Https();

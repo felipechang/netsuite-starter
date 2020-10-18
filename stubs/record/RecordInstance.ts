@@ -793,4 +793,4 @@ class Record {
     };
 }
 
-export default new Record();
+export = new Record();

@@ -7,7 +7,6 @@
         define(["require", "exports", "./Sublist"], factory);
     }
 })(function (require, exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Primary object used to encapsulate a record object.
      *
@@ -755,5 +754,5 @@
         ;
         return Record;
     }());
-    exports.default = new Record();
+    return new Record();
 });
