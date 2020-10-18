@@ -14,7 +14,7 @@
 
 5. Install dependencies: `npm install`
 
-6. **Read the README.md file**  
+6. **Read the generated README.md file for further instructions**  
 
 ## License
 GNU GPL see LICENSE.
