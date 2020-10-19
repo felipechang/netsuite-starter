@@ -29,9 +29,9 @@
                 name: "project-type",
                 message: "Enter project type:",
                 choices: [
+                    { name: "Empty", value: "" },
                     { name: "Account Customization", value: "ACP" },
                     { name: "SuiteApp", value: "SUITEAPP" },
-                    { name: "Empty", value: "" },
                 ]
             }, {
                 type: "input",
@@ -119,9 +119,17 @@
                 projectVersion: answers["project-version"],
                 publisherId: answers["publisher-id"],
             };
+            // We default to ACP for jest.config
+            var isEmptyType = !data.projectType;
+            if (isEmptyType) {
+                data.projectType = "ACP";
+            }
             fs_1.mkdirSync(CURR_DIR + "/" + data.projectName);
             createDirectoryContents(__dirname + "/project", data.projectName, data);
             var partialPath = __dirname + "/partials/" + data.projectType;
+            if (isEmptyType) {
+                data.projectType = "";
+            }
             if (data.projectType === "ACP") {
                 createDirectoryContents(partialPath, data.projectName + "/source", data);
             }

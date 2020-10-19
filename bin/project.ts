@@ -21,9 +21,9 @@ export const makeProject = (): void => {
         name: "project-type",
         message: "Enter project type:",
         choices: [
+            {name: "Empty", value: ""},
             {name: "Account Customization", value: "ACP"},
             {name: "SuiteApp", value: "SUITEAPP"},
-            {name: "Empty", value: ""},
         ]
     }, {
         type: "input",
@@ -120,11 +120,22 @@ export const makeProject = (): void => {
             publisherId: answers["publisher-id"],
         };
 
+        // We default to ACP for jest.config
+        const isEmptyType = !data.projectType;
+
+        if (isEmptyType) {
+            data.projectType = "ACP";
+        }
+
         mkdirSync(`${CURR_DIR}/${data.projectName}`);
 
         createDirectoryContents(`${__dirname}/project`, data.projectName, data);
 
         const partialPath = `${__dirname}/partials/${data.projectType}`;
+
+        if (isEmptyType) {
+            data.projectType = "";
+        }
 
         if (data.projectType === "ACP") {
             createDirectoryContents(partialPath, `${data.projectName}/source`, data);
