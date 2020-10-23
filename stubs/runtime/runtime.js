@@ -48,6 +48,7 @@
     })(EnvType || (EnvType = {}));
     var runtime = /** @class */ (function () {
         function runtime() {
+            this.ContextType = ContextType;
         }
         /** Returns a runtime.Script that represents the currently executing script. */
         runtime.prototype.getCurrentScript = function () {

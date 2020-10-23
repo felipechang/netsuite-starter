@@ -45,6 +45,12 @@ enum EnvType {
 
 class runtime {
 
+    ContextType: any;
+
+    constructor() {
+        this.ContextType = ContextType;
+    }
+
     /** The NetSuite account ID for the currently logged-in user. */
     accountId: string | undefined;
     /** The current environment in which the script is executing. This property returns one of the values from the runtime.EnvType enumeration. */

@@ -8,11 +8,11 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@hitc/netsuite-types": "^2020.2.5",
+    "@hitc/netsuite-types": "^2020.2.7",
     "@oracle/suitecloud-unit-testing": "^1.1.0",
     "@types/jest": "^26.0.14",
-    "@types/node": "^14.11.10",
-    "jest": "^26.5.2",
-    "netsuite-starter": "1.0.12"
+    "@types/node": "^14.14.2",
+    "jest": "^26.6.1",
+    "netsuite-starter": "1.0.13"
   }
 }
