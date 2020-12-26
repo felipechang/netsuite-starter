@@ -39,7 +39,7 @@ export const makeTemplate = () => {
         name: "name",
         message: "Enter script name:",
         default(): string {
-            return "";
+            return "None";
         },
         validate(s): boolean {
 

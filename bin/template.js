@@ -46,7 +46,7 @@
                 name: "name",
                 message: "Enter script name:",
                 default: function () {
-                    return "";
+                    return "None";
                 },
                 validate: function (s) {
                     var c = new RegExp("^[a-zA-Z_]*$");
