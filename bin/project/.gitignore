@@ -38,3 +38,6 @@ Thumbs.db
 
 # Output of 'npm pack'
 *.tgz
+
+# Javascript files
+*.js
