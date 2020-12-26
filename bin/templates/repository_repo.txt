@@ -1,0 +1,31 @@
+import {Type} from "N/search";
+
+/**
+ * Repository file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** <%= namePascal %>Repository */
+class <%= namePascal %>Repository {
+
+    /** Record Type */
+    private readonly recordType: string | Type;
+
+    /** Constructor */
+    constructor() {
+        this.recordType = "<%= record_type %>";
+    }
+}
+
+export default <%= namePascal %>Repository;

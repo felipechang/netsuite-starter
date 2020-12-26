@@ -1,5 +1,5 @@
 /**
- * Model file
+ * Custom library file
  *
  * WARNING:
  * TypeScript generated file, do not edit directly
@@ -14,7 +14,4 @@
  * @NModuleScope SameAccount
  */
 
-/** <%= namePascal %> model */
-export interface I<%= namePascal %> {
-
-}
+export {};

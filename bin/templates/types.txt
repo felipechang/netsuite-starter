@@ -1,5 +1,5 @@
 /**
- * Repository file
+ * Types file
  *
  * WARNING:
  * TypeScript generated file, do not edit directly
@@ -14,16 +14,7 @@
  * @NModuleScope SameAccount
  */
 
-/** <%= namePascal %>Repository */
-class <%= namePascal %>Repository {
+/** <%= namePascal %> */
+interface I<%= namePascal %> {
 
-    /** Record Type */
-    private recordType: string;
-
-    /** Constructor */
-    constructor() {
-        this.recordType = "<%= record_type %>";
-    }
 }
-
-export default <%= namePascal %>Repository;

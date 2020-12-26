@@ -1,9 +1,7 @@
-import {pascalCase} from "change-case";
 import * as dotenv from "dotenv";
-import {render} from "ejs";
-import {readFileSync, writeFileSync} from "fs";
-import {Answers, prompt as inquirerPrompt, Separator} from "inquirer";
-import * as moment from "moment";
+import {prompt as inquirerPrompt, Separator} from "inquirer";
+import {injectFiles} from "./injector";
+
 // @ts-ignore
 import * as recordTypes from "./types.json";
 
@@ -29,11 +27,11 @@ export const makeTemplate = () => {
             {name: "User Event", value: "userevent"},
             {name: "Workflow Action", value: "workflow"},
             new Separator("-- Auxiliary --"),
-            {name: "Bloc", value: "bloc"},
+            {name: "Bloc", value: "bloc_bloc"},
             {name: "Configuration", value: "config"},
-            {name: "Model", value: "model"},
-            {name: "Repository", value: "repository"},
-            {name: "Static", value: "static"},
+            {name: "Repository", value: "repository_repo"},
+            {name: "Static", value: "static_static"},
+            {name: "Types", value: "types"},
             {name: "Utility", value: "util"},
         ]
     }, {
@@ -41,7 +39,7 @@ export const makeTemplate = () => {
         name: "name",
         message: "Enter script name:",
         default(): string {
-            return "Unnamed";
+            return "";
         },
         validate(s): boolean {
 
@@ -61,15 +59,14 @@ export const makeTemplate = () => {
         message: "Enter record types used:",
         when: (answers) => {
             return [
-                "bloc",
+                "bloc_bloc",
                 "bundle",
                 "config",
                 "mapreduce",
                 "portlet",
-                "model",
-                "repository",
+                "repository_repo",
                 "scheduled",
-                "static",
+                "static_static",
                 "util",
             ].indexOf(answers.type) === -1;
         }
@@ -85,36 +82,9 @@ export const makeTemplate = () => {
         name: "record_type",
         message: "Enter record type:",
         when: (answers) => {
-            return answers.type === "repository";
+            return answers.type === "repository_repo";
         }
     }]);
 
-    program.then((answers: Answers) => {
-
-        const today = moment(new Date());
-
-        const templateFile = `${__dirname}/templates/${answers.type}.txt`;
-        const fileName = `source/${process.env.FILE_PREFIX}_${answers.name}_${answers.type}.ts`;
-
-        const content = readFileSync(templateFile, "utf8");
-
-        writeFileSync(fileName, render(content, {
-
-            // Generics
-            date: today.format("MM/DD/YYYY"),
-
-            // User
-            user_name: process.env.USER_NAME,
-            user_email: process.env.EMAIL,
-            company_name: process.env.COMPANY_NAME,
-
-            // Names
-            namePascal: pascalCase(answers.name),
-
-            // Details
-            types: (answers.types && answers.types.length > 0) ? answers.types.join(",") : "None",
-            description: answers.description,
-            record_type: answers.record_type,
-        }));
-    });
+    injectFiles(program);
 };

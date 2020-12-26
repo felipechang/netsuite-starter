@@ -1,0 +1,58 @@
+import {create, createColumn, createFilter, CreateSearchColumnOptions, Result, SearchCreateOptions} from "N/search";
+
+/**
+ * Search library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** Performs a basic search */
+const basicSearch = (o: SearchCreateOptions, runOnce: boolean, cb: (a: Result | null) => void): void => {
+
+    if (o.filters) {
+        for (const f in o.filters) {
+            o.filters[f] = createFilter(o.filters[f]);
+        }
+    }
+    if (o.columns) {
+        for (const j in o.columns) {
+            o.columns[j] = createColumn(o.columns[j] as CreateSearchColumnOptions);
+        }
+    }
+
+    const basic = create(o);
+    const runResult = basic.run();
+    if (runResult.getRange({start: 0, end: 1}).length === 0) {
+        cb(null);
+    }
+    runResult.each((entry) => {
+        cb(entry);
+
+        return !runOnce;
+    });
+};
+
+/** Performs a basic search for up to 1000 records */
+export const searchRecords = (o: SearchCreateOptions, cb: (a: Result | null) => void): void => {
+    basicSearch(o, false, cb);
+};
+
+/** Performs a basic search for one record */
+export const findRecord = (o: SearchCreateOptions, cb: (a: Result | null) => void): void => {
+    basicSearch(o, true, cb);
+};
+
+/** Evaluates if a result is blank or None */
+export const isBlank = (name: string): boolean => {
+    return name === "" || name === "- None -";
+};

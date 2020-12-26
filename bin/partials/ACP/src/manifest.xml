@@ -1,4 +1,4 @@
 <manifest projecttype="ACCOUNTCUSTOMIZATION">
-  <projectname><%= projectName %></projectname>
-  <frameworkversion>1.0</frameworkversion>
+    <projectname><%= projectName %></projectname>
+    <frameworkversion>1.0</frameworkversion>
 </manifest>
