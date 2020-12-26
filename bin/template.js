@@ -14,7 +14,7 @@
     var injector_1 = require("./injector");
     // @ts-ignore
     var recordTypes = require("./types.json");
-    exports.makeTemplate = function () {
+    var makeTemplate = function () {
         dotenv.config();
         var program = inquirer_1.prompt([{
                 type: "list",
@@ -91,4 +91,5 @@
             }]);
         injector_1.injectFiles(program);
     };
+    exports.makeTemplate = makeTemplate;
 });

@@ -10,7 +10,7 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.runBuild = void 0;
     var child_process_1 = require("child_process");
-    exports.runBuild = function () {
+    var runBuild = function () {
         var sequentialExecution = function () {
             var commands = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -29,4 +29,5 @@
         };
         sequentialExecution("npm test", "tslint source/**/*.ts", "tsc", "nsx artifact");
     };
+    exports.runBuild = runBuild;
 });

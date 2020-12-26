@@ -13,7 +13,7 @@
     var dotenv = require("dotenv");
     var fs_1 = require("fs");
     var moment = require("moment");
-    exports.makeArtifact = function () {
+    var makeArtifact = function () {
         dotenv.config();
         var date = new Date();
         var time = moment(date);
@@ -25,4 +25,5 @@
             console.log("zip has been created for " + process.env.ARTIFACT_NAME);
         });
     };
+    exports.makeArtifact = makeArtifact;
 });

@@ -12,7 +12,7 @@
     var ejs_1 = require("ejs");
     var fs_1 = require("fs");
     var inquirer_1 = require("inquirer");
-    exports.makeProject = function () {
+    var makeProject = function () {
         var CURR_DIR = process.cwd();
         var program = inquirer_1.prompt([{
                 type: "input",
@@ -157,4 +157,5 @@
             });
         };
     };
+    exports.makeProject = makeProject;
 });

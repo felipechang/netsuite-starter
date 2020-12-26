@@ -9,7 +9,7 @@ export const makeProject = (): void => {
         type: "input",
         name: "project-name",
         message: "Enter project name:",
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^([A-Za-z\-_\d])+$/.test(input)) {
                 return true;
             }
@@ -29,10 +29,10 @@ export const makeProject = (): void => {
         type: "input",
         name: "project-id",
         message: "Enter project ID:",
-        when: (answers) => {
+        when: (answers: Answers) => {
             return answers["project-type"] === "SUITEAPP";
         },
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^([a-z0-9])+$/.test(input) && input.length < 40) {
                 return true;
             }
@@ -43,10 +43,10 @@ export const makeProject = (): void => {
         type: "input",
         name: "project-version",
         message: "Enter project version:",
-        when: (answers) => {
+        when: (answers: Answers) => {
             return answers["project-type"] === "SUITEAPP";
         },
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^([0-9.])+$/.test(input)) {
                 return true;
             }
@@ -57,10 +57,10 @@ export const makeProject = (): void => {
         type: "input",
         name: "publisher-id",
         message: "Enter publisher ID [com.netsuite]:",
-        when: (answers) => {
+        when: (answers: Answers) => {
             return answers["project-type"] === "SUITEAPP";
         },
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^([a-z.])+$/.test(input)) {
                 return true;
             }
@@ -71,7 +71,7 @@ export const makeProject = (): void => {
         type: "input",
         name: "author-name",
         message: "Enter author name:",
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^([A-Za-z\- ])+$/.test(input)) {
                 return true;
             }
@@ -82,7 +82,7 @@ export const makeProject = (): void => {
         type: "input",
         name: "author-email",
         message: "Enter author email:",
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input)) {
                 return true;
             }
@@ -97,7 +97,7 @@ export const makeProject = (): void => {
         type: "input",
         name: "project-prefix",
         message: "Enter file prefix:",
-        validate: (input): string | boolean => {
+        validate: (input: string): string | boolean => {
             if (/^[A-Za-z]+$/.test(input) && input.length <= 5) {
                 return true;
             }
@@ -106,7 +106,7 @@ export const makeProject = (): void => {
         }
     },]);
 
-    program.then((answers: Answers) => {
+    program.then((answers: any) => {
 
         const data = {
             projectName: answers["project-name"],

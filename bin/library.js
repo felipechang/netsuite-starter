@@ -12,7 +12,7 @@
     var dotenv = require("dotenv");
     var inquirer_1 = require("inquirer");
     var injector_1 = require("./injector");
-    exports.makeLibrary = function () {
+    var makeLibrary = function () {
         dotenv.config();
         var program = inquirer_1.prompt([{
                 type: "list",
@@ -25,4 +25,5 @@
             }]);
         injector_1.injectFiles(program);
     };
+    exports.makeLibrary = makeLibrary;
 });

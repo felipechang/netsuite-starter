@@ -2,7 +2,7 @@
   "name": "netsuite-starter",
   "author": "Felipe Chang <felipechang@hardcake.org>",
   "license": "GPL-3.0",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Scaffold to build NetSuite account customizations",
   "keywords": [
     "netsuite",
@@ -23,8 +23,8 @@
     "nsx": "bin/index.js"
   },
   "engines": {
-    "node": ">=15.4.0",
-    "npm": ">=6.14.10"
+    "node": "15.4.0",
+    "npm": "7.0.15"
   },
   "dependencies": {
     "archiver": "5.1.0",
