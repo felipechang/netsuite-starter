@@ -8,7 +8,7 @@
     }
 })(function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.makeTemplate = void 0;
+    exports.makeLibrary = exports.makeTemplate = void 0;
     var dotenv = require("dotenv");
     var inquirer_1 = require("inquirer");
     var injector_1 = require("./injector");
@@ -92,4 +92,18 @@
         injector_1.injectFiles(program);
     };
     exports.makeTemplate = makeTemplate;
+    var makeLibrary = function () {
+        dotenv.config();
+        var program = inquirer_1.prompt([{
+                type: "list",
+                name: "type",
+                message: "Select library to import:",
+                choices: [
+                    { name: "Search", value: "lib_search" },
+                    { name: "Empty", value: "lib_custom" },
+                ]
+            }]);
+        injector_1.injectFiles(program);
+    };
+    exports.makeLibrary = makeLibrary;
 });

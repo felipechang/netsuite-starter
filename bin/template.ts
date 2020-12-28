@@ -5,6 +5,11 @@ import {injectFiles} from "./injector";
 // @ts-ignore
 import * as recordTypes from "./types.json";
 
+interface ICustomAnswer {
+    type: string;
+    name: string;
+}
+
 export const makeTemplate = () => {
 
     dotenv.config();
@@ -41,7 +46,7 @@ export const makeTemplate = () => {
         default(): string {
             return "None";
         },
-        validate(s): boolean {
+        validate(s: string): boolean {
 
             const c = new RegExp("^[a-zA-Z_]*$");
             const t = c.test(s);
@@ -57,7 +62,7 @@ export const makeTemplate = () => {
         name: "types",
         choices: recordTypes,
         message: "Enter record types used:",
-        when: (answers) => {
+        when: (answers: ICustomAnswer) => {
             return [
                 "bloc_bloc",
                 "bundle",
@@ -81,9 +86,27 @@ export const makeTemplate = () => {
         type: "input",
         name: "record_type",
         message: "Enter record type:",
-        when: (answers) => {
+        when: (answers: ICustomAnswer) => {
             return answers.type === "repository_repo";
         }
+    }]);
+
+    injectFiles(program);
+};
+
+
+export const makeLibrary = () => {
+
+    dotenv.config();
+
+    const program = inquirerPrompt([{
+        type: "list",
+        name: "type",
+        message: "Select library to import:",
+        choices: [
+            {name: "Search", value: "lib_search"},
+            {name: "Empty", value: "lib_custom"},
+        ]
     }]);
 
     injectFiles(program);

@@ -51,6 +51,7 @@
     "member-ordering": [
       true,
       {
+        "alphabetize": true,
         "order": "fields-first"
       }
     ],

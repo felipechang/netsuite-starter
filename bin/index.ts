@@ -12,13 +12,13 @@ if (processes.length > 0) {
 
 } else {
 
-    const program = inquirerPrompt([{
+    const program = inquirerPrompt<Answers>([{
         type: "list",
         name: "program",
         message: "Select action:",
         choices: PROCESS_OPTIONS
     }]);
-    program.then((answers: Answers) => {
+    program.then((answers) => {
         answers.program();
     });
 }

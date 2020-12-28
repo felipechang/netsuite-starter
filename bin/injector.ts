@@ -32,8 +32,6 @@ export const injectFiles = (program: AnswerPromise) => {
 
     program.then((answers: Answers) => {
 
-        console.log(answers);
-
         const today = moment(new Date());
         const answerType = getAnswerType(answers);
 

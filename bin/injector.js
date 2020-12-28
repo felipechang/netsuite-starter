@@ -32,7 +32,6 @@
     };
     var injectFiles = function (program) {
         program.then(function (answers) {
-            console.log(answers);
             var today = moment(new Date());
             var answerType = getAnswerType(answers);
             answers.name = answers.name ? "_" + answers.name.replace("None", "") : "";

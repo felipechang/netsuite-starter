@@ -1,8 +1,7 @@
 import {makeArtifact} from "./artifact";
 import {runBuild} from "./build";
-import {makeLibrary} from "./library";
 import {makeProject} from "./project";
-import {makeTemplate} from "./template";
+import {makeLibrary, makeTemplate} from "./template";
 
 export const PROCESS_OPTIONS = [
     {name: "Create artifact", value: makeArtifact, parameter: "artifact"},
