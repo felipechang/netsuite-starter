@@ -2,8 +2,9 @@ import {pascalCase} from "change-case";
 import {render} from "ejs";
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from "fs";
 import {Answers} from "inquirer";
-import * as moment from "moment";
+// tslint:disable-next-line:no-require-imports
 import PromptUI = require("inquirer/lib/ui/prompt");
+import * as moment from "moment";
 
 type AnswerPromise = Promise<any> & { ui: PromptUI; };
 

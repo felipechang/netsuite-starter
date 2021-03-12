@@ -6,8 +6,8 @@ import {injectFiles} from "./injector";
 import * as recordTypes from "./types.json";
 
 interface ICustomAnswer {
-    type: string;
     name: string;
+    type: string;
 }
 
 export const makeTemplate = () => {
