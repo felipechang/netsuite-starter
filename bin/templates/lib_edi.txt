@@ -1,0 +1,202 @@
+/** EDI schema */
+export interface IEDIOptions {
+
+    /** Entry separator */
+    entrySeparator: string;
+
+    /** Line separator */
+    lineSeparator: string;
+
+    /** Values considered null */
+    nullValues: string[];
+
+    /** EDI Schema groups */
+    schema: IEDISchemaGroup[];
+}
+
+/** EDI schema group */
+export interface IEDISchemaGroup {
+
+    /** Segment elements */
+    elements: IEDISchemaEl[];
+
+    /** Segment name */
+    segment: string;
+}
+
+/** EDI schema */
+export interface IEDISchemaEl {
+
+    /** Fixed number of digits */
+    fixedDigits?: number;
+
+    /** Input string */
+    input: string;
+
+    /** Text justification */
+    justification?: EDIJustification;
+
+    /** Maximum number of digits */
+    maxDigits?: number;
+
+    /** Minimum number of digits */
+    minDigits?: number;
+
+    /** Don't apply formatting */
+    noFormat?: boolean;
+
+    /** Optional value */
+    optional?: boolean;
+
+    /** Fill blanks with zeroes */
+    zeroFill?: boolean;
+}
+
+/** Justification Enum */
+export enum EDIJustification {
+    Left = "0",
+    Right = "1"
+}
+
+/**
+ * EDI library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** EDI Library */
+class EDILibrary {
+
+    /** Blank entry for schema */
+    public static SCHEMA_BLANK = {
+        input: "",
+        optional: true,
+        fixedDigits: 0
+    };
+
+    /** EDI Schema Options */
+    private options: IEDIOptions;
+
+    /** Class Constructor */
+    constructor(options: IEDIOptions) {
+        this.options = options;
+    }
+
+    /** Print EDI text */
+    public print(): string {
+
+        const elementGroup: string[] = [];
+        const separator = this.options.entrySeparator;
+
+        for (let i = 0; i < this.options.schema.length; i++) {
+
+            const group = this.options.schema[i];
+            const lineArray = group.elements.map((s) => {
+                return this.formatSchema(s);
+            });
+
+            elementGroup.push(`${group.segment}${separator}${lineArray.join(separator)}`);
+        }
+
+        return elementGroup.join(this.options.lineSeparator);
+    }
+
+    /** Format EDI Schema into text */
+    private formatSchema(schema: IEDISchemaEl): string {
+
+        if (!isNaN(Number(schema.input))) {
+            schema.input = String(schema.input);
+        }
+
+        // Handle null or none
+        if (this.options.nullValues.indexOf(schema.input) !== -1 || !schema.input) {
+            schema.input = "";
+        }
+
+        if (schema.justification && !schema.fixedDigits) {
+            throw new Error(`Justification can only be used with fixed digits ${JSON.stringify(schema)}`);
+        }
+
+        if ((schema.fixedDigits && (schema.minDigits || schema.maxDigits))) {
+            throw new Error(`Fixed digits and min/max digits can't be used in unison ${JSON.stringify(schema)}`);
+        }
+
+        if (!schema.optional && !schema.input) {
+            throw new Error(`Required value missing ${JSON.stringify(schema)}`);
+        }
+
+        if (!schema.noFormat) {
+
+            // Remove non-alphanumeric
+            schema.input = schema.input.replace(/[^\x00-\x7F]/g, "");
+            schema.input = schema.input.replace(/(?=\W)[^\^]/g, "");
+
+            // Replace French Characters
+            schema.input = schema.input.replace(/Ç/g, "c");
+            schema.input = schema.input.replace(/éêèë/g, "e");
+            schema.input = schema.input.replace(/àâ/g, "a");
+            schema.input = schema.input.replace(/ïî/g, "i");
+            schema.input = schema.input.replace(/ô/g, "o");
+            schema.input = schema.input.replace(/ü/g, "u");
+
+            // Replace Spanish Characters
+            schema.input = schema.input.replace(/á/g, "a");
+            schema.input = schema.input.replace(/é/g, "e");
+            schema.input = schema.input.replace(/í/g, "i");
+            schema.input = schema.input.replace(/ó/g, "o");
+            schema.input = schema.input.replace(/ú/g, "u");
+        }
+
+        // Set justification
+        if (schema.justification === EDIJustification.Right && schema.fixedDigits) {
+
+            let s = "";
+
+            for (let i = schema.input.length; i < schema.fixedDigits; i++) {
+                s += (schema.zeroFill ? "0" : " ");
+            }
+
+            schema.input = s + schema.input;
+        }
+
+        if (schema.justification === EDIJustification.Left && schema.fixedDigits) {
+
+            for (let i = schema.input.length; i < schema.fixedDigits; i++) {
+                schema.input += (schema.zeroFill ? "0" : " ");
+            }
+        }
+
+        if (!schema.justification && schema.fixedDigits) {
+
+            for (let i = schema.input.length; i < schema.fixedDigits; i++) {
+                schema.input += (schema.zeroFill ? "0" : " ");
+            }
+        }
+
+        // Set max/min digits
+        if (schema.maxDigits) {
+            schema.input = schema.input.substring(0, schema.maxDigits);
+        }
+
+        if (schema.minDigits) {
+
+            for (let i = 0; i < schema.minDigits; i++) {
+                schema.input += (schema.zeroFill ? "0" : " ");
+            }
+        }
+
+        return schema.input.substring(0, schema.maxDigits);
+    }
+}
+
+export default EDILibrary;

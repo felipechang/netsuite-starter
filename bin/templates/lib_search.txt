@@ -1,4 +1,35 @@
-import {create, createColumn, createFilter, CreateSearchColumnOptions, Result, SearchCreateOptions} from "N/search";
+import {ContextType, executionContext} from "N/runtime";
+import {
+    create,
+    createColumn,
+    createFilter,
+    CreateSearchColumnOptions,
+    CreateSearchFilterOptions,
+    load,
+    Result,
+    Search,
+    SearchCreateOptions,
+    Type
+} from "N/search";
+
+/** Search transform method */
+export type SearchTransform = <T>(result: Result) => IResponse<T>;
+
+/** Constructor option to load a search instead of creating */
+interface ISearchLoadOptions {
+
+    /** Internal ID */
+    id: string;
+
+    /** Search type */
+    type?: string | Type;
+}
+
+/** Transform response */
+interface IResponse<T> {
+    continue: boolean;
+    response: T;
+}
 
 /**
  * Search library file
@@ -16,43 +47,217 @@ import {create, createColumn, createFilter, CreateSearchColumnOptions, Result, S
  * @NModuleScope SameAccount
  */
 
-/** Performs a basic search */
-const basicSearch = (o: SearchCreateOptions, runOnce: boolean, cb: (a: Result | null) => void): void => {
+/** Search Library */
+class SearchLibrary {
 
-    if (o.filters) {
-        for (const f in o.filters) {
-            o.filters[f] = createFilter(o.filters[f]);
+    /** Default page size */
+    public pageSize: number;
+
+    /** Search reference */
+    public search: Search;
+
+    /** Search Client reference (available only on UI) */
+    public searchClient?: Promise<Search>;
+
+    /** Transform method */
+    private transform: SearchTransform;
+
+    /** Constructor */
+    constructor(options: SearchCreateOptions & ISearchLoadOptions) {
+
+        this.pageSize = 50;
+
+        this.transform = (): any => {
+            return;
+        };
+
+        this.search = options.id ? load(options) : create(SearchLibrary.setDefault(options));
+
+        if (executionContext === ContextType.USER_INTERFACE) {
+            this.searchClient = options.id ? load.promise(options) : create.promise(SearchLibrary.setDefault(options));
         }
     }
-    if (o.columns) {
-        for (const j in o.columns) {
-            o.columns[j] = createColumn(o.columns[j] as CreateSearchColumnOptions);
+
+    /** Compare if two objects have the same key and property */
+    private static hasSameKeyValue(f1: any, f2: any, key: string): boolean {
+        return f1[key] && f2[key] && f1[key] === f2[key];
+    }
+
+    /** Set default values on filters and columns */
+    private static setDefault(options: SearchCreateOptions): SearchCreateOptions {
+
+        if (options.filters) {
+            for (const f in options.filters) {
+                options.filters[f] = createFilter(options.filters[f]);
+            }
         }
+
+        if (options.columns) {
+            for (const j in options.columns) {
+                options.columns[j] = createColumn(options.columns[j] as CreateSearchColumnOptions);
+            }
+        }
+
+        return options;
     }
 
-    const basic = create(o);
-    const runResult = basic.run();
-    if (runResult.getRange({start: 0, end: 1}).length === 0) {
-        cb(null);
+    /** Add a column to the current search */
+    public addColumn(column: CreateSearchColumnOptions): void {
+        this.search.columns.push(column);
     }
-    runResult.each((entry) => {
-        cb(entry);
 
-        return !runOnce;
-    });
-};
+    /** Add a filter to the current search */
+    public addFilter(filter: CreateSearchFilterOptions): void {
+        this.search.columns.push(filter);
+    }
 
-/** Performs a basic search for up to 1000 records */
-export const searchRecords = (o: SearchCreateOptions, cb: (a: Result | null) => void): void => {
-    basicSearch(o, false, cb);
-};
+    /** Get a set of records (up to 1000) */
+    public getRange<T>(range: { end: number, start: number }): T[] {
 
-/** Performs a basic search for one record */
-export const findRecord = (o: SearchCreateOptions, cb: (a: Result | null) => void): void => {
-    basicSearch(o, true, cb);
-};
+        if (!this.transform) {
+            throw new Error("A transform method needs to be set");
+        }
 
-/** Evaluates if a result is blank or None */
-export const isBlank = (name: string): boolean => {
-    return name === "" || name === "- None -";
-};
+        const response: T[] = [];
+
+        const resultSet = this.search.run();
+
+        if (resultSet.getRange({start: 0, end: 1}).length === 0) {
+            return response;
+        }
+
+        resultSet.getRange(range).map((result) => {
+
+            const transformResult = this.transform<T>(result);
+            response.push(transformResult.response);
+
+            return transformResult.continue;
+        });
+
+        return response;
+    }
+
+    /** Get all search results */
+    public getResults<T>(): T[] {
+
+        if (!this.transform) {
+            throw new Error("A transform method needs to be set");
+        }
+
+        const response: T[] = [];
+
+        const pagedData = this.search.runPaged({
+            pageSize: this.pageSize
+        });
+
+        if (pagedData.count === 0) {
+            return response;
+        }
+
+        for (let i = 0; i < pagedData.pageRanges.length; i++) {
+
+            const pageRange = pagedData.pageRanges[i];
+            const orderPage = pagedData.fetch({index: pageRange.index});
+
+            for (let j = 0; j < orderPage.data.length; j++) {
+
+                const result = orderPage.data[j];
+
+                const transformResult = this.transform<T>(result);
+                response.push(transformResult.response);
+
+                if (!transformResult.continue) {
+                    return response;
+                }
+            }
+        }
+
+        return response;
+    }
+
+    /** Async get all search results */
+    public getResultsClient<T>(callback: (response?: T[], error?: Error) => void): void {
+
+        if (!this.transform) {
+            throw new Error("A transform method needs to be set");
+        }
+
+        if (this.searchClient === undefined) {
+            throw new Error("Method must be run on User Interface");
+        }
+
+        const response: T[] = [];
+
+        this.searchClient.then((search) => {
+
+            const searchPromise = search.runPaged.promise({
+                pageSize: this.pageSize
+            });
+
+            searchPromise.then((pagedData) => {
+
+                if (pagedData.count === 0) {
+                    return callback(response);
+                }
+
+                for (let i = 0; i < pagedData.pageRanges.length; i++) {
+
+                    const pageRange = pagedData.pageRanges[i];
+                    const orderPage = pagedData.fetch({index: pageRange.index});
+
+                    for (let j = 0; j < orderPage.data.length; j++) {
+
+                        const result = orderPage.data[j];
+
+                        const transformResult = this.transform<T>(result);
+                        response.push(transformResult.response);
+
+                        if (!transformResult.continue || j === orderPage.data.length - 1) {
+                            return callback(response);
+                        }
+                    }
+                }
+            });
+
+            searchPromise.catch((error) => {
+                callback(undefined, new Error(error));
+            });
+        });
+    }
+
+    /** Remove a column to the current search */
+    public removeColumn(column: CreateSearchColumnOptions): void {
+        this.search.columns = this.search.columns.filter((c) => {
+            return !(
+                SearchLibrary.hasSameKeyValue(column, c, "name") &&
+                SearchLibrary.hasSameKeyValue(column, c, "join)") &&
+                SearchLibrary.hasSameKeyValue(column, c, "summary") &&
+                SearchLibrary.hasSameKeyValue(column, c, "formula") &&
+                SearchLibrary.hasSameKeyValue(column, c, "function") &&
+                SearchLibrary.hasSameKeyValue(column, c, "label") &&
+                SearchLibrary.hasSameKeyValue(column, c, "sort")
+            );
+        });
+    }
+
+    /** Remove a filter to the current search */
+    public removeFilter(filter: CreateSearchFilterOptions): void {
+        this.search.filters = this.search.filters.filter((f) => {
+            return !(
+                SearchLibrary.hasSameKeyValue(filter, f, "name") &&
+                SearchLibrary.hasSameKeyValue(filter, f, "formula") &&
+                SearchLibrary.hasSameKeyValue(filter, f, "join)") &&
+                SearchLibrary.hasSameKeyValue(filter, f, "summary") &&
+                SearchLibrary.hasSameKeyValue(filter, f, "operator") &&
+                SearchLibrary.hasSameKeyValue(filter, f, "values")
+            );
+        });
+    }
+
+    /** Set transformation method on search results */
+    public setTransform(transform: SearchTransform): void {
+        this.transform = transform;
+    }
+}
+
+export default SearchLibrary;

@@ -1,0 +1,221 @@
+import {File, load, Type} from "N/file";
+
+/** Index of each header position */
+interface IHeaderIndex {
+    [key: string]: number;
+}
+
+/** File CSV line iterator */
+interface IFileIterator {
+    each: (options: any) => boolean;
+}
+
+/** String JSON */
+interface IJson {
+    [key: string]: string;
+}
+
+/** CSV library constructor parameters */
+export interface ICsvLibraryOptions {
+
+    /** Optional regEx to remove invalid characters */
+    cellCleaner?: RegExp;
+
+    /** Used to separate columns */
+    columnDelimiter?: string;
+
+    /** CSV file ID */
+    id?: string;
+
+    /** Used to separate rows */
+    rowDelimiter?: string;
+}
+
+/**
+ * CSV library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** CSV Library */
+class CsvLibrary {
+
+    /** Regex to remove invalid characters */
+    public cellCleaner = /\s*(.*?)\s*/g;
+
+    /** Used to separate columns */
+    public columnDelimiter = ",";
+
+    /** Used to separate rows */
+    public rowDelimiter = "\r\n";
+
+    /** File reference */
+    private readonly file?: File;
+
+    /** Line iterator method */
+    private readonly iterator?: IFileIterator;
+
+    /** Constructor */
+    constructor(options: ICsvLibraryOptions) {
+
+        if (options.cellCleaner) {
+            this.cellCleaner = options.cellCleaner;
+        }
+
+        if (options.columnDelimiter) {
+            this.columnDelimiter = options.columnDelimiter;
+        }
+
+        if (options.rowDelimiter) {
+            this.rowDelimiter = options.rowDelimiter;
+        }
+
+        if (!options.id) {
+            return;
+        }
+
+        this.file = load({id: options.id});
+
+        if (this.file.fileType !== Type.CSV) {
+            throw new Error("Selected file is not a CSV");
+        }
+
+        this.iterator = this.file.lines.iterator();
+    }
+
+    /** Get file object */
+    public getFile(): File | null {
+        return this.file ? this.file : null;
+    }
+
+    /** Get raw CSV string */
+    public getRawContents(): string | null {
+        return this.file ? this.file.getContents() : null;
+    }
+
+    /** Transform a JSON object to CSV */
+    public jsonToCSV(jsonArr: IJson[]): string {
+
+        const result: string[] = [];
+
+        result.push(this.getCSVHeader(jsonArr[0]));
+        jsonArr.map(this.getCSVBody);
+
+        return result.join(this.rowDelimiter);
+    }
+
+    /** Convert a CSV to JSON */
+    public toJSON(headers?: string[]): IJson[] {
+
+        if (!this.iterator) {
+            return [];
+        }
+
+        const headerIndex = this.getHeaderIndex();
+
+        const response: { [key: string]: string }[] = [];
+
+        this.iterator.each((line: { value: string }) => {
+
+            const csvLines = this.cleanCSVLines(line.value);
+
+            const k: IJson = {};
+
+            for (const name in headerIndex) {
+
+                if (!headerIndex.hasOwnProperty(name)) {
+                    continue;
+                }
+
+                const index = headerIndex[name];
+
+                if (headers && headers.indexOf(name) === -1) {
+
+                    k[name] = csvLines[index];
+
+                    continue;
+                }
+
+                k[name] = csvLines[index];
+            }
+
+            response.push(k);
+
+            return true;
+        });
+
+        return response;
+    }
+
+    /** Clean characters from CSV line */
+    private cleanCSVLines(value: string): string[] {
+        return value.split(this.columnDelimiter).map((cell) => {
+            return cell.replace(this.cellCleaner, "");
+        });
+    }
+
+    /** Get CSV body string */
+    private getCSVBody(json: IJson): string {
+
+        const keys = Object.keys(json);
+        const lines: string[] = [];
+
+        let line: string = "";
+
+        for (let i = 0; i < keys.length; i++) {
+
+            const key = keys[i];
+
+            if (line.length !== 0) {
+                line += this.columnDelimiter;
+            }
+
+            line += String(json[key]).replace(this.cellCleaner, "");
+
+            lines.push(line);
+        }
+
+        return lines.join(this.rowDelimiter);
+    }
+
+    /** Get CSV header line */
+    private getCSVHeader(json: IJson): string {
+        return `${Object.keys(json).join(this.columnDelimiter)}`;
+    }
+
+    /** Get and index of header name positions */
+    private getHeaderIndex(): IHeaderIndex {
+
+        const headerIndex: IHeaderIndex = {};
+
+        if (!this.iterator) {
+            return headerIndex;
+        }
+
+        this.iterator.each((line: { value: string }) => {
+
+            const header = this.cleanCSVLines(line.value);
+
+            for (let index = 0; index < header.length; index++) {
+                const name = header[index];
+                headerIndex[name] = index;
+            }
+
+            return false;
+        });
+
+        return headerIndex;
+    }
+}
+
+export default CsvLibrary;

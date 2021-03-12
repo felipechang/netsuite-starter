@@ -19,14 +19,14 @@ const getAnswerType = (answers: Answers): AnswerType => {
 
     switch (true) {
         case hasFolder && !answers.description:
-            return AnswerType.Library
+            return AnswerType.Library;
         case hasFolder && !!answers.description:
-            return AnswerType.FolderFile
+            return AnswerType.FolderFile;
         default:
-            return AnswerType.File
+            return AnswerType.File;
     }
 
-}
+};
 
 export const injectFiles = (program: AnswerPromise) => {
 

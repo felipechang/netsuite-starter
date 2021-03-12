@@ -1,0 +1,232 @@
+import {ClientCurrentRecord} from "@hitc/netsuite-types/N/record";
+import {create, Message, MessageCreateOptions, Type} from "N/ui/message";
+
+/** Message creation parameters */
+interface IShowMessage {
+
+    /**
+     * The amount of time, in milliseconds, to show the message. The default is 0, which shows the message until Message.hide() is called.
+     * If you specify a duration for message.create() and message.show(), the value from the message.show() method call takes precedence.
+     */
+    duration?: number;
+
+    /** Message body */
+    message?: string;
+
+    /** Message title */
+    title?: string;
+}
+
+interface IQueryParams {
+    [key: string]: string;
+}
+
+/**
+ * Browser library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** Browser Library Message Class */
+class BrowserLibraryMessage {
+
+    /** Default message duration is 5 seconds */
+    private DEFAULT_DURATION = 5000;
+
+    /** Display an confirmation message */
+    public confirmation(showMessage: IShowMessage): Message {
+
+        const {message, duration, title} = showMessage;
+        const type = Type.CONFIRMATION;
+
+        return this.show({message, title, duration, type});
+    }
+
+    /** Display an error message */
+    public error(showMessage: IShowMessage): Message {
+
+        const {message, duration, title} = showMessage;
+        const type = Type.ERROR;
+
+        return this.show({message, title, duration, type});
+    }
+
+    /** Display an information message */
+    public info(showMessage: IShowMessage): Message {
+
+        const {message, duration, title} = showMessage;
+        const type = Type.INFORMATION;
+
+        return this.show({message, title, duration, type});
+    }
+
+    /** Display a warning message */
+    public warn(showMessage: IShowMessage): Message {
+
+        const {message, duration, title} = showMessage;
+        const type = Type.WARNING;
+
+        return this.show({message, title, duration, type});
+    }
+
+    /** Display a message on screen */
+    private show(message: IShowMessage & MessageCreateOptions): Message {
+        const msg = create(message);
+        message.duration = message.duration ? message.duration : this.DEFAULT_DURATION;
+        msg.show(message);
+
+        return msg;
+    }
+}
+
+/** Browser Library Query Class */
+class BrowserLibraryQuery {
+
+    /** Get query parameters as a key-value JSON */
+    public get(): IQueryParams {
+        return this.getSearchObject(location.search.substring(1));
+    }
+
+    /** Get session storage item by key */
+    public getPrevious(): IQueryParams {
+
+        const search = window.document.referrer;
+
+        if (!search) {
+            return {};
+        }
+
+        if (search.indexOf("?") === -1) {
+            return {};
+        }
+
+        return this.getSearchObject(search.split("?")[1]);
+    }
+
+    /** Populate query parameters into the current record */
+    public populate(record: ClientCurrentRecord, override: boolean): void {
+
+        const params = this.get();
+
+        for (const fieldId in params) {
+
+            if (!params.hasOwnProperty(fieldId)) {
+                continue;
+            }
+
+            const value = params[fieldId];
+            const currentValue = record.getValue({fieldId});
+
+            if ((!currentValue || override) && fieldId !== "id") {
+                try {
+                    record.setValue({fieldId, value});
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+    }
+
+    /** Get the JSON from the search string */
+    private getSearchObject(search: string): IQueryParams {
+        search = search.replace(/&/g, "\",\"");
+        search = search.replace(/=/g, "\":\"");
+
+        return search ? JSON.parse(`{"${search}"}`,
+            (key, value) => {
+                return key === "" ? value : decodeURIComponent(value);
+            }) : {};
+    }
+}
+
+/** Browser Library Storage Class */
+class BrowserLibraryStorage {
+
+    /** Match the first and last characters of a string */
+    private static isFirstLastChar(value: string, first: string, last: string): boolean {
+        return value.indexOf(first) === 0 && value.lastIndexOf(last) === value.length - 1;
+    }
+
+    /** Clear session storage */
+    public clear(): void {
+        console.warn("Clearing all session storage");
+        sessionStorage.clear();
+    }
+
+    /** Get session storage item by key */
+    public get(key: string): any {
+
+        const value = sessionStorage.getItem(key);
+
+        if (!value || value === "null") {
+            return null;
+        }
+
+        switch (true) {
+            case value === "true":
+                return true;
+            case value === "false":
+                return false;
+            case BrowserLibraryStorage.isFirstLastChar(value, "[", "]"):
+                return JSON.parse(value);
+            case BrowserLibraryStorage.isFirstLastChar(value, "{", "}"):
+                return JSON.parse(value);
+            case !isNaN(parseInt(value)):
+                return Number(value);
+            default:
+                return value;
+        }
+    }
+
+    /** Get all session storage keys */
+    public getAllKeys(): string[] {
+        return Object.keys(window.sessionStorage);
+    }
+
+    /** Remove key from session storage */
+    public remove(key: string): void {
+        console.warn(`Clearing ${key}`);
+        sessionStorage.removeItem(key);
+    }
+
+    /** Set key/value on session storage */
+    public set(key: string, value: any): void {
+
+        if (typeof value === "object") {
+            value = JSON.stringify(value);
+        }
+        sessionStorage.setItem(key, value);
+    }
+}
+
+/** Browser Library */
+class BrowserLibrary {
+
+    /** Message Class reference */
+    public message = new BrowserLibraryMessage();
+
+    /** Query Class reference */
+    public query = new BrowserLibraryQuery();
+
+    /** Storage Class reference */
+    public storage = new BrowserLibraryStorage();
+
+    /** Constructor */
+    constructor() {
+        if (!location || !document) {
+            throw new Error("Class can only be instantiated from a browser");
+        }
+    }
+}
+
+export default BrowserLibrary;

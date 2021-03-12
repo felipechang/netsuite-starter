@@ -1,0 +1,106 @@
+/** Lob Library */
+import {format, Type} from "N/format";
+import {getCurrentScript} from "N/runtime";
+
+/**
+ * Log library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** Log Library */
+class LogLibrary {
+
+    /** Character for a new line */
+    private LINE_BREAK = "\n";
+
+    /** Log width in characters */
+    private readonly lineWidth: number;
+
+    /** Output string */
+    private OUTPUT: string[];
+
+    /** Class Constructor */
+    constructor(lineWidth: number) {
+        this.OUTPUT = [];
+        this.lineWidth = lineWidth;
+    }
+
+    /** Clear output */
+    public clear(): void {
+        this.OUTPUT = [];
+    }
+
+    /** Clear output */
+    public print(): string {
+        return this.OUTPUT.join(this.LINE_BREAK);
+    }
+
+    public push(val: string): void {
+        this.pushWidthFormatted(val);
+    }
+
+    /** Appends current governance */
+    public pushGovernance(): void {
+        const script = getCurrentScript();
+        const remainingUnits = script.getRemainingUsage();
+        this.pushWidthFormatted(`${remainingUnits} governance units remaining`);
+    }
+
+    /** Appends a starred line */
+    public pushStarredLine(): void {
+
+        let line = new Array(this.lineWidth);
+        line = line.map(() => {
+            return "*";
+        });
+
+        this.OUTPUT.push(line.join(""));
+    }
+
+    /** Appends current time */
+    public pushTimestamp(): void {
+        this.pushWidthFormatted(`Time: ${format({
+            "value": new Date(),
+            "type": Type.DATETIMETZ
+        })};`);
+    }
+
+    /** Format the text width limit */
+    private pushWidthFormatted(value: string): void {
+
+        if (value.length <= this.lineWidth) {
+            this.OUTPUT.push(value);
+
+            return;
+        }
+
+        const arr = value.split("");
+
+        do {
+
+            let slice = arr.splice(0, this.lineWidth).join("");
+
+            if (slice.length < this.lineWidth) {
+                for (let j = 0; j < (this.lineWidth - slice.length); j++) {
+                    slice += " ";
+                }
+            }
+
+            this.OUTPUT.push(slice);
+
+        } while (arr.length > 0);
+    }
+}
+
+export default LogLibrary;

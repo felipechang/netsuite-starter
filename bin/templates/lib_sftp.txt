@@ -1,0 +1,62 @@
+import {create, Encoding, Type} from "N/file";
+import {Connection, createConnection, CreateSFTPConnectionOptions} from "N/sftp";
+
+/**
+ * SFTP library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** SFTP Library */
+class SFTPLibrary {
+
+    /** Connection object */
+    private connection: Connection;
+
+    /** Default connection port */
+    private DEFAULT_FTP_PORT = 22;
+
+    /** Name formatter method */
+    private nameFormatter: (name: string) => string;
+
+    /** Constructor */
+    constructor(createSFTPConnectionOptions: CreateSFTPConnectionOptions) {
+        createSFTPConnectionOptions.port = createSFTPConnectionOptions.port || this.DEFAULT_FTP_PORT;
+        this.connection = createConnection(createSFTPConnectionOptions);
+        this.nameFormatter = (n: string) => {
+            return n;
+        };
+    }
+
+    /** Update formatting method for uploaded filenames */
+    public formatUploadName(cb: (name: string) => string): void {
+        this.nameFormatter = cb;
+    }
+
+    /** Upload CSV contents as a file */
+    public uploadCSV(name: string, contents: string, replaceExisting?: boolean): void {
+        const formattedName = this.nameFormatter(name);
+        this.connection.upload({
+            filename: formattedName,
+            file: create({
+                name: formattedName,
+                fileType: Type.CSV,
+                encoding: Encoding.UTF_8,
+                contents
+            }),
+            replaceExisting
+        });
+    }
+}
+
+export default SFTPLibrary;

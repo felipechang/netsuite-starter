@@ -1,0 +1,111 @@
+import {getCurrentScript} from "N/runtime";
+import {
+    checkStatus,
+    create,
+    DedupeEntityType,
+    DedupeMode,
+    MapReduceScriptTaskStatus,
+    MasterSelectionMode,
+    ScheduledScriptTaskStatus,
+    TaskType,
+} from "N/task";
+
+/** scheduleScript input */
+type ScheduleScriptIn = {
+    deployment?: string
+    id?: string
+    params?: object
+};
+
+/** deduplicate input */
+type DeduplicateIn = {
+    customerType: DedupeEntityType
+    deDuplicationMode: DedupeMode
+    duplicateIdArr: number[]
+    masterRecordId: string | number
+    selectionMode: MasterSelectionMode
+};
+
+/**
+ * Task library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** Task Library */
+class TaskLibrary {
+
+    /** Export Task Statuses */
+    private readonly taskType: TaskType;
+
+    /** Constructor */
+    constructor(taskType: TaskType) {
+        this.taskType = taskType;
+    }
+
+    /** Run a de-duplication job */
+    public deduplicate(deduplicateIn: DeduplicateIn, cb?: (status: any) => void): void {
+
+        if (this.taskType !== TaskType.ENTITY_DEDUPLICATION) {
+            throw new Error("Task must be type ENTITY_DEDUPLICATION");
+        }
+
+        const deDuplicationTask = create({taskType: TaskType.ENTITY_DEDUPLICATION});
+        deDuplicationTask.entityType = deduplicateIn.customerType.toString();
+        deDuplicationTask.masterSelectionMode = deduplicateIn.selectionMode;
+        deDuplicationTask.dedupeMode = deduplicateIn.deDuplicationMode;
+        deDuplicationTask.masterRecordId = deduplicateIn.masterRecordId;
+        deDuplicationTask.recordIds = deduplicateIn.duplicateIdArr;
+
+        const taskId = deDuplicationTask.submit();
+        const taskStatus = checkStatus({taskId});
+
+        if (cb) {
+            cb(taskStatus);
+        }
+    }
+
+    /**
+     * Run/re-schedule a Schedule or MapReduce script.
+     * If no script ID or deployment are specified
+     * the script from where this was executed
+     * will be re-scheduled.
+     */
+    public scheduleScript(scheduleIn: ScheduleScriptIn): ScheduledScriptTaskStatus | MapReduceScriptTaskStatus {
+
+        const taskTypes = [
+            TaskType.MAP_REDUCE,
+            TaskType.SCHEDULED_SCRIPT,
+        ];
+
+        if (taskTypes.indexOf(this.taskType) === -1) {
+            throw new Error("Task must be type SCHEDULED_SCRIPT or MAP_REDUCE");
+        }
+
+        const script = getCurrentScript();
+        const id = scheduleIn.id || script.id;
+
+        const taskObj = create({
+            taskType: this.taskType,
+            scriptId: id,
+            deploymentId: scheduleIn.deployment || script.deploymentId,
+            params: scheduleIn.params
+        } as any);
+
+        const taskId = taskObj.submit();
+
+        return checkStatus({taskId}) as ScheduledScriptTaskStatus | MapReduceScriptTaskStatus;
+    }
+}
+
+export default TaskLibrary;

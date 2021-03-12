@@ -1,0 +1,282 @@
+import {Cache, getCache, GetCacheOptions, LoaderContext} from "N/cache";
+import {getCurrentScript} from "N/runtime";
+
+/** Key Name */
+type KeyName = string | string[];
+
+/** Response format */
+type Response<T> = { [key: string]: T };
+
+/** Key name and loader */
+interface IGetParams<T> {
+    loader?: (key: KeyName) => T;
+    name: KeyName;
+}
+
+/** TTL Calculator input */
+interface ICalculateTTL {
+    days?: number;
+    hours?: number;
+    minutes?: number;
+    seconds?: number;
+}
+
+/** Cache Library Constructor Options */
+export interface ICache extends GetCacheOptions {
+
+    /** Prefix applied to the key in the cache */
+    prefix: string;
+
+    /**
+     * Boolean control field (optional) ==> Used as an on/off switch for the cache
+     * If a loader is provided it will return that value, if not it returns {key: null}
+     */
+    toggle: string;
+
+    /** The duration, in seconds, that a value retrieved by the loader should remain in the cache */
+    ttl: number;
+}
+
+/**
+ * Cache library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** Cache Library */
+class CacheLibrary {
+
+    /** Page data reference */
+    public cache: Cache;
+
+    /** Minimum TTL allowed */
+    private MIN_TTL = 300;
+
+    /** Name formatter method */
+    private nameFormatter: (name: string) => string;
+
+    /** Check for an on/off switch */
+    private readonly toggle: string;
+
+    /** Seconds duration in the cache */
+    private ttl: number;
+
+    /** Constructor */
+    constructor(options: ICache) {
+        this.cache = getCache(options);
+        this.ttl = this.setTTL(options.ttl);
+        this.toggle = options.toggle;
+        this.nameFormatter = (n: string) => {
+            return n;
+        };
+    }
+
+    /** Get string from cache */
+    private static getToggle<T>({name, loader}: IGetParams<T>): Response<T> {
+
+        const response: Response<T> = {};
+
+        if (!loader) {
+            return response;
+        }
+
+        if (typeof name === "string") {
+            response[name] = loader(name);
+        }
+
+        if (typeof name === "object") {
+            for (let i = 0; i < name.length; i++) {
+                response[name[i]] = loader(name[i]);
+            }
+        }
+
+        return response;
+    }
+
+    /** Add formatting to the name under each result will be stored in the cache memory */
+    public formatCacheName(cb: (keyName: string) => string): void {
+        this.nameFormatter = cb;
+    }
+
+    /** Get single or multiple keys */
+    public get<T>({name, loader}: IGetParams<T>): Response<T> {
+
+        if (this.toggle && !this.toggleIsOn()) {
+            return CacheLibrary.getToggle({name, loader});
+        }
+
+        switch (typeof name) {
+
+            case "string":
+                return this.getString<T>({name, loader});
+
+            case "object":
+                return this.getStringArray<T>({name, loader});
+
+            default:
+                return {};
+        }
+    }
+
+    /** Remove an entry or array of entries */
+    public remove(name: KeyName): void {
+        let key = "";
+        switch (typeof name) {
+            case "string":
+                key = this.nameFormatter(name);
+                if (this.cache.get({key})) {
+                    this.cache.remove({key});
+                }
+                break;
+            case "object":
+                name.map((n) => {
+                    key = this.nameFormatter(n);
+                    if (this.cache.get({key})) {
+                        this.cache.remove({key});
+                    }
+                });
+                break;
+            default:
+        }
+    }
+
+    /** set a key/value pair */
+    public set<T>(keyValues: Response<T>): void {
+        for (const key in keyValues) {
+            if (!keyValues.hasOwnProperty(key)) {
+                continue;
+            }
+            this.cache.put({
+                key: this.nameFormatter(key),
+                ttl: this.ttl,
+                value: JSON.stringify(keyValues[key])
+            });
+        }
+    }
+
+    /** Set cache duration */
+    public setTTL(ttl: number): number {
+        const t = ttl < this.MIN_TTL ? this.MIN_TTL : ttl;
+        this.ttl = t;
+
+        return t;
+    }
+
+    /**
+     * Returns the value in seconds for a seconds, minutes, hours, days input.
+     * Defaults to 300 seconds, which is the minimum value
+     */
+    public ttlCalculator(t: ICalculateTTL): number {
+
+        const nullTime = 0;
+        const secondsInMinute = 60;
+        const secondsInHour = 3600;
+        const secondsInDay = 86400;
+
+        let timer = t.seconds || nullTime;
+
+        if (t.minutes) {
+            timer += (t.minutes * secondsInMinute);
+        }
+
+        if (t.hours) {
+            timer += (t.hours * secondsInHour);
+        }
+
+        if (t.days) {
+            timer += (t.days * secondsInDay);
+        }
+
+        if (timer < this.MIN_TTL) {
+            timer = this.MIN_TTL;
+        }
+
+        return timer;
+    }
+
+    /** Get string from cache */
+    private getString<T>({name, loader}: IGetParams<T>): Response<T> {
+
+        const response: Response<T> = {};
+
+        if (typeof name !== "string") {
+            return response;
+        }
+
+        response[name] = JSON.parse(this.cache.get({
+            key: this.nameFormatter(name),
+            ttl: this.ttl,
+            loader: !loader ? undefined : (context: LoaderContext): string => {
+                return JSON.stringify(loader(context.key));
+            }
+        })) as T;
+
+        return response;
+    }
+
+    /** Get string from cache */
+    private getStringArray<T>({name, loader}: IGetParams<T>): Response<T> {
+
+        const response: Response<T> = {};
+
+        if (typeof name !== "object") {
+            return response;
+        }
+
+        if (!loader) {
+
+            name.map((s) => {
+                response[s] = JSON.parse(this.cache.get({key: this.nameFormatter(s)}));
+            });
+
+            return response;
+        }
+
+        const remaining = name.filter((s) => {
+
+            const value = this.cache.get({key: this.nameFormatter(s)});
+
+            if (value) {
+                response[s] = JSON.parse(value) as T;
+
+                return false;
+            }
+
+            return true;
+        });
+
+        if (remaining.length > 0) {
+
+            for (let i = 0; i < name.length; i++) {
+                response[name[i]] = loader(name[i]);
+                this.cache.put({
+                    key: this.nameFormatter(name[i]),
+                    ttl: this.ttl,
+                    value: JSON.stringify(response[name[i]])
+                });
+            }
+        }
+
+        return response;
+    }
+
+    /** Evaluate if the script parameter is turned on/off */
+    private toggleIsOn(): boolean {
+
+        const script = getCurrentScript();
+
+        return script.getParameter({name: this.toggle}) as boolean;
+    }
+}
+
+export default CacheLibrary;

@@ -94,7 +94,6 @@ export const makeTemplate = () => {
     injectFiles(program);
 };
 
-
 export const makeLibrary = () => {
 
     dotenv.config();
@@ -104,8 +103,16 @@ export const makeLibrary = () => {
         name: "type",
         message: "Select library to import:",
         choices: [
+            {name: "Browser", value: "lib_browser"},
+            {name: "Cache", value: "lib_cache"},
+            {name: "CSV", value: "lib_csv"},
+            {name: "Custom", value: "lib_custom"},
+            {name: "EDI", value: "lib_edi"},
+            {name: "Governance", value: "lib_governance"},
             {name: "Search", value: "lib_search"},
-            {name: "Empty", value: "lib_custom"},
+            {name: "Log", value: "lib_log"},
+            {name: "SFTP", value: "lib_sftp"},
+            {name: "Task", value: "lib_task"},
         ]
     }]);
 

@@ -1,0 +1,66 @@
+import {getCurrentScript, Script} from "N/runtime";
+
+/**
+ * Cache library file
+ *
+ * WARNING:
+ * TypeScript generated file, do not edit directly
+ * source files are located in the the repository
+ *
+ * @description: <%= description %>
+ *
+ * @copyright <%= date %> <%= company_name %>
+ * @author <%= user_name %> <<%= user_email %>>
+ *
+ * @NApiVersion 2.x
+ * @NModuleScope SameAccount
+ */
+
+/** Governance Library */
+class GovernanceLibrary {
+
+    /**
+     * Minimum points required to run a script
+     * Set by default to the max governance used by a common API call
+     */
+    private floor = 20;
+
+    /** Script reference */
+    private script: Script;
+
+    /** Constructor */
+    constructor() {
+        this.script = getCurrentScript();
+    }
+
+    /** Get governance points remaining */
+    public getRemaining(): number {
+        return this.script.getRemainingUsage();
+    }
+
+    /** Evaluate if we have governance points remaining */
+    public hasRemaining(): boolean {
+        return this.script.getRemainingUsage() > this.floor;
+    }
+
+    /** Run until we exhaust governance points, with an optional to run in this case */
+    public runUntil(callback: (remaining: number) => void, until?: () => void): void {
+
+        if (this.hasRemaining()) {
+            return callback(this.getRemaining());
+        }
+
+        if (!until) {
+            return;
+        }
+
+        return until();
+    }
+
+    /** Update minimum points required */
+    public updateFloor(minimum: number): void {
+        this.floor = minimum;
+    }
+}
+
+export default GovernanceLibrary;

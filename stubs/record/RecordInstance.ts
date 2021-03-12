@@ -23,6 +23,35 @@ import Sublist from "./Sublist";
 class Record {
 
     /**
+     * Performs macro operation and returns its result in a plain JavaScript object.
+     */
+
+    executeMacro(options: any): any {
+        if (options) {
+            //
+        }
+    };
+
+    /**
+     * Provides a macro to execute
+     */
+
+    getMacro(options: any): any {
+        if (options) {
+            //
+        }
+    };
+
+    /**
+     * Provides a plain JavaScript object that contains macro objects defined for
+     * a record type, indexed by the Macro ID.
+     */
+
+    getMacros(): any {
+        //
+    };
+
+    /**
      * provide scripting context for records
      * getScriptContext is only in recordDefinition.js and not in dynamicrecord.js.So it is only visible inside NetSuite.
      */
@@ -267,6 +296,21 @@ class Record {
      */
 
     removeLine(options: any): any {
+        if (options) {
+            //
+        }
+    };
+
+    /**
+     * Selects an existing line in a sublist.
+     * @param {Object} options
+     * @param {string} options.sublistId
+     * @param {number} options.line
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId is missing or undefined
+     * @throws {SuiteScriptError} SSS_INVALID_SUBLIST_OPERATION if invalid sublist id or sublist is not editable
+     * @restriction only available in dynamic record
+     */
+    selectLine(options: any): any {
         if (options) {
             //
         }
@@ -599,6 +643,21 @@ class Record {
      */
 
     getSublistField(options: any): any {
+        if (options) {
+            //
+        }
+    };
+
+    /**
+     * Returns the line number of the currently selected line.
+     * @param {Object} options
+     * @param {string} options.sublistId
+     * @return {Field}
+     * @throws {SuiteScriptError} SSS_MISSING_REQD_ARGUMENT if sublistId or fieldId is missing
+     * @restriction only available in dynamic record
+     */
+
+    getCurrentSublistIndex(options: any): any {
         if (options) {
             //
         }
