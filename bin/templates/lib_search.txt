@@ -71,10 +71,12 @@ class SearchLibrary {
             return;
         };
 
-        this.search = options.id ? load(options) : create(SearchLibrary.setDefault(options));
+        const createOptions = SearchLibrary.setDefault(options);
+
+        this.search = options.id ? load(options) : create(createOptions);
 
         if (executionContext === ContextType.USER_INTERFACE) {
-            this.searchClient = options.id ? load.promise(options) : create.promise(SearchLibrary.setDefault(options));
+            this.searchClient = options.id ? load.promise(options) : create.promise(createOptions);
         }
     }
 
